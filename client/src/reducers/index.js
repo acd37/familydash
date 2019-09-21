@@ -4,11 +4,15 @@ import errorReducer from './errorReducer';
 import familyReducer from './familyReducer';
 import todoReducer from './todoReducer';
 import recipeReducer from './recipeReducer';
+import loadingReducer from './loadingReducer';
+import userReducer from './userReducer';
 
 export default combineReducers({
   auth: authReducer,
   errors: errorReducer,
   family: familyReducer,
   todos: todoReducer,
-  recipes: recipeReducer
+  recipes: recipeReducer,
+  users: userReducer,
+  loading: loadingReducer
 });

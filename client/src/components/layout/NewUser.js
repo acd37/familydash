@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import classnames from 'classnames';
 import { connect } from 'react-redux';
-import { createFamily } from '../../actions/familyActions';
+import { createFamily, joinFamily } from '../../actions/familyActions';
 import Alert from '../common/Alert';
 
 class NewUser extends Component {
   state = {
     code: '',
     familyName: '',
+    familyCode: '',
     errors: {}
   };
 
@@ -17,8 +17,28 @@ class NewUser extends Component {
     });
   };
 
+  handleJoinFamily = (e) => {
+    e.preventDefault();
+
+    let errors = {};
+
+    if (!this.state.familyCode) {
+      errors.familyCode = 'You must provide a family code.';
+      return this.setState({ errors });
+    } else {
+      this.props.joinFamily(this.state.familyCode);
+    }
+  };
+
   handleCreateNewFamily = (e) => {
     e.preventDefault();
+
+    let errors = {};
+
+    if (!this.state.familyName) {
+      errors.familyName = 'You must provide a family name.';
+      return this.setState({ errors });
+    }
 
     const newFamily = {
       familyName: this.state.familyName
@@ -39,42 +59,46 @@ class NewUser extends Component {
             existing unit or start a new one.'
         />
 
-        <div className='row'>
-          <div className='col-md-6'>
-            <h4>Join an existing family</h4>
-            <form>
-              <input
-                placeholder='Add your family code here...'
-                name='code'
-                type='text'
-                value={this.state.code}
-                onChange={this.onChange}
-                className={classnames('form-control', {
-                  'is-invalid': errors.code
-                })}
-              />
-              {errors.code && <div className='invalid-feedback'>{errors.code}</div>}
-              <input type='submit' className='btn btn-primary btn-block mt-4' />
-            </form>
-          </div>
+        <div className='ui placeholder segment'>
+          <div className='ui two column very relaxed stackable grid'>
+            <div className='column'>
+              <form className='ui form' onSubmit={this.handleJoinFamily}>
+                <div className={`field ${errors.familyCode ? 'error' : ''}`}>
+                  <label>
+                    {errors.familyCode ? <p>{errors.familyCode}</p> : 'Join an Existing Family'}
+                  </label>
 
-          <div className='col-md-6'>
-            <h4>Start a new family</h4>
-            <form onSubmit={this.handleCreateNewFamily}>
-              <input
-                placeholder='What should we call your family group...?'
-                name='familyName'
-                type='text'
-                value={this.state.familyName}
-                onChange={this.onChange}
-                className={classnames('form-control', {
-                  'is-invalid': errors.familyName
-                })}
-              />
-              {errors.code && <div className='invalid-feedback'>{errors.familyName}</div>}
-              <input type='submit' className='btn btn-primary btn-block mt-4' />
-            </form>
+                  <input
+                    placeholder='Add your family code here...'
+                    name='familyCode'
+                    type='text'
+                    value={this.state.familyCode}
+                    onChange={this.onChange}
+                  />
+                </div>
+                <input type='submit' className='fluid ui button' />
+              </form>
+            </div>
+            <div className='column'>
+              <form className='ui form' onSubmit={this.handleCreateNewFamily}>
+                <div className={`field ${errors.familyName ? 'error' : ''}`}>
+                  <label>
+                    {errors.familyName ? <p>{errors.familyName}</p> : 'Create New Family'}
+                  </label>
+
+                  <input
+                    placeholder='What should we call your family group...?'
+                    name='familyName'
+                    type='text'
+                    value={this.state.familyName}
+                    onChange={this.onChange}
+                  />
+                </div>
+                <input type='submit' className='fluid ui button' />
+              </form>
+            </div>
           </div>
+          <div className='ui vertical divider'>Or</div>
         </div>
       </div>
     );
@@ -88,5 +112,5 @@ const mapStateToProps = (state) => ({
 
 export default connect(
   mapStateToProps,
-  { createFamily }
+  { createFamily, joinFamily }
 )(NewUser);

@@ -15,10 +15,12 @@ module.exports = function(app) {
   // @desc creates a  todo item
   app.post('/api/recipe', passport.authenticate('jwt', { session: false }), (req, res) => {
     const recipe = {
-      familyId: req.body.familyId,
+      familyId: req.user.familyId,
       name: req.body.name,
+      prepTime: req.body.prepTime,
       description: req.body.description,
-      ingredients: req.body.ingredients,
+      ingredients: JSON.stringify(req.body.ingredients),
+      instructions: JSON.stringify(req.body.instructions),
       cookTime: req.body.cookTime,
       image: req.body.image,
       calorieCount: req.body.calorieCount
@@ -28,20 +30,21 @@ module.exports = function(app) {
       db.recipe
         .findAll({
           where: {
-            familyId: req.body.familyId
+            familyId: req.user.familyId
           }
         })
         .then((recipes) => {
           res.status(200).json(recipes);
         })
         .catch((err) => {
+          console.log(err);
           res.status(500).json(err);
         })
     );
   });
 
-  // @route  GET api/todo/:familyId
-  // @desc gets all todos
+  // @route  GET api/recipe/:familyId
+  // @desc gets all recipes
   app.get('/api/recipe/:familyId', passport.authenticate('jwt', { session: false }), (req, res) => {
     db.recipe
       .findAll({
@@ -57,49 +60,107 @@ module.exports = function(app) {
       });
   });
 
-  // @route  PUT api/todo/:id
-  // @desc updates a todo item
-  app.put('/api/recipe/:id', passport.authenticate('jwt', { session: false }), (req, res) => {
-    const updatedRecipe = {
-      familyId: req.body.familyId,
-      name: req.body.name,
-      description: req.body.description,
-      ingredients: req.body.ingredients,
-      cookTime: req.body.cookTime,
-      image: req.body.image,
-      calorieCount: req.body.calorieCount
-    };
+  // @route  GET api/recipe/:id
+  // @desc gets a recipe item
+  app.get(
+    '/api/recipe/individual/:id',
+    passport.authenticate('jwt', { session: false }),
+    (req, res) => {
+      console.log(req.params.id);
+      db.recipe
+        .findOne({
+          where: {
+            id: req.params.id
+          }
+        })
+        .then((recipe) => {
+          const formattedRecipe = {
+            name: recipe.name,
+            description: recipe.description,
+            cookTime: recipe.cookTime,
+            prepTime: recipe.prepTime,
+            ingredients: JSON.parse(recipe.ingredients),
+            instructions: JSON.parse(recipe.instructions),
+            image: recipe.image
+          };
+          console.log(recipe);
+          res.status(200).json(formattedRecipe);
+        })
+        .catch((err) => {
+          res.status(500).json(err);
+        });
+    }
+  );
 
-    db.recipe.update(updatedRecipe, { where: { id: req.params.id } }).then(() => {
+  // @route  PUT api/recipe/:id
+  // @desc updates a recipe item
+  app.put(
+    '/api/recipe/:familyId/:id',
+    passport.authenticate('jwt', { session: false }),
+    (req, res) => {
+      const updatedRecipe = {
+        calendar: req.body.calendar,
+        name: req.body.name,
+        description: req.body.description,
+        ingredients: req.body.ingredients,
+        cookTime: req.body.cookTime,
+        image: req.body.image,
+        calorieCount: req.body.calorieCount
+      };
+
+      db.recipe.update(updatedRecipe, { where: { id: req.params.id } }).then(() => {
+        db.recipe
+          .findAll({
+            where: {
+              familyId: req.params.familyId
+            }
+          })
+          .then((recipes) => {
+            res.status(200).json(recipes);
+          })
+          .catch((err) => {
+            res.status(500).json(err);
+          });
+      });
+    }
+  );
+
+  // @route  DELETE api/recipe/:id
+  // @desc deletes a recipe item
+  app.delete(
+    '/api/recipe/:id/:familyId',
+    passport.authenticate('jwt', { session: false }),
+    (req, res) => {
+      db.recipe.destroy({ where: { id: req.params.id } }).then((status) => {
+        if (status === 1) {
+          db.recipe
+            .findAll({ where: { familyId: req.params.familyId } })
+            .then((recipes) => {
+              res.status(200).json(recipes);
+            })
+            .catch((err) => res.status(500).json(err));
+        }
+      });
+    }
+  );
+
+  //  @route GET api/recipe/calendar
+  // @desc gets all recipes marked as calendar items
+  app.get(
+    '/api/recipe/meals/calendar',
+    passport.authenticate('jwt', { session: false }),
+    (req, res) => {
       db.recipe
         .findAll({
           where: {
-            familyId: req.body.familyId
+            familyId: req.user.familyId,
+            calendar: true
           }
         })
         .then((recipes) => {
           res.status(200).json(recipes);
         })
-        .catch((err) => {
-          res.status(500).json(err);
-        });
-    });
-  });
-
-  // @route  DELETE api/todo/:id
-  // @desc deletes a todo item
-  app.delete(
-    '/api/recipe/:id/:familyId',
-    passport.authenticate('jwt', { session: false }),
-    (req, res) => {
-      db.recipe.destroy({ where: { id: req.params.id } }).then(
-        db.recipe
-          .findAll({ where: { familyId: req.params.familyId } })
-          .then((recipes) => {
-            res.status(200).json(recipes);
-          })
-          .catch((err) => res.status(500).json(err))
-      );
+        .catch((err) => res.status(500).json(err));
     }
   );
 };

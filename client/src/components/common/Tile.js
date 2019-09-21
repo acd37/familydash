@@ -1,21 +1,23 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-const styles = {
-  card: {
-    background: '#fff',
-    borderRadius: '0.375rem',
-    boxShadow: '0 12px 15px rgba(0,0,0,0.1), 0 17px 50px rgba(0,0,0,0.1)',
-    padding: 10,
-    boxSizing: 'border-box',
-    width: 500,
-    maxWidth: '90%'
-  }
-};
+function Tile(props) {
+  return (
+    <div className='ui raised card' style={{ width: 400, marginTop: 0, marginBottom: 0 }}>
+      <div className='content'>
+        {props.icon && (
+          <h2 class='ui header' style={{ marginBottom: 30 }}>
+            <i class={`${props.icon} icon`}></i>
+            <div class='content'>
+              {props.title}
+              <div class='sub header'>{props.subTitle}</div>
+            </div>
+          </h2>
+        )}
 
-class Tile extends Component {
-  render() {
-    return <div style={styles.card}>{this.props.children}</div>;
-  }
+        <div className='description'>{props.children}</div>
+      </div>
+    </div>
+  );
 }
 
 export default Tile;

@@ -84,14 +84,19 @@ module.exports = function(app) {
     '/api/todo/:id/:familyId',
     passport.authenticate('jwt', { session: false }),
     (req, res) => {
-      db.todo.destroy({ where: { id: req.params.id } }).then(
-        db.todo
-          .findAll({ where: { familyId: req.params.familyId } })
-          .then((todos) => {
-            res.status(200).json(todos);
-          })
-          .catch((err) => res.status(500).json(err))
-      );
+      db.todo
+        .destroy({ where: { id: req.params.id } })
+        .then((status) => {
+          if (status === 1) {
+            db.todo
+              .findAll({ where: { familyId: req.params.familyId } })
+              .then((todos) => {
+                res.status(200).json(todos);
+              })
+              .catch((err) => res.status(500).json(err));
+          }
+        })
+        .catch((err) => console.log(err));
     }
   );
 };

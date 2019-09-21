@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { GET_ERRORS, SET_TODOS } from './types';
+import { SET_TODOS } from './types';
 
 // get todos
 export const getTodos = (familyId) => (dispatch) => {
@@ -42,12 +42,13 @@ export const createTodo = (todo) => (dispatch) => {
 export const deleteTodo = (todoId, familyId) => (dispatch) => {
   axios
     .delete(`/api/todo/${todoId}/${familyId}`)
-    .then((res) =>
+    .then((res) => {
+      console.log(res.data);
       dispatch({
         type: SET_TODOS,
         payload: res.data
-      })
-    )
+      });
+    })
     .catch((err) =>
       dispatch({
         type: SET_TODOS,

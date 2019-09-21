@@ -12,7 +12,17 @@ module.exports = function(app) {
     });
   });
 
-  // @route GET api/user/full
+  // @route GET api/user/all
+  // @desc gets all logged in users' family users
+  app.get('/api/user/all', passport.authenticate('jwt', { session: false }), (req, res) => {
+    db.user
+      .findAll({
+        where: {
+          familyCode: req.user.familyCode
+        }
+      })
+      .then((users) => res.json(users));
+  });
 
   // @route POST api/users/
   // @desc creates a new user

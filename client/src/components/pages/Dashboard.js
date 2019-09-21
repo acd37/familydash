@@ -11,35 +11,29 @@ class Dashboard extends Component {
   }
 
   render() {
-    const { user } = this.props.auth;
     const { family } = this.props.family;
+    const { loading } = this.props.loading;
 
     let dashboardContent;
 
-    if (family === null || Object.keys(family).length === 0) {
+    if (loading) {
+      dashboardContent = 'Loading...';
+    } else if (family === null || Object.keys(family).length === 0) {
       dashboardContent = <NewUser />;
     }
     // check if logged in user has a profile
     else if (Object.keys(family).length > 0) {
       dashboardContent = <Content />;
     }
-
-    console.log(family);
-
-    return (
-      <div className='container'>
-        <div className='row'>
-          <div className='col-md-12'>{dashboardContent}</div>
-        </div>
-      </div>
-    );
+    return <div>{dashboardContent}</div>;
   }
 }
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
   family: state.family,
-  errors: state.errors
+  errors: state.errors,
+  loading: state.loading
 });
 
 export default connect(

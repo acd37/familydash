@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import RecipeCard from './RecipeCard';
+import { connect } from 'react-redux';
 
 const styles = {
   flexContainer: {
     display: 'grid',
     gridGap: 10,
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     gridTemplateColumns: 'repeat(auto-fit, minmax(300px, auto))'
   }
 };
@@ -26,4 +27,11 @@ class AllRecipes extends Component {
   }
 }
 
-export default AllRecipes;
+const mapStateToProps = (state) => ({
+  recipes: state.recipes.recipes
+});
+
+export default connect(
+  mapStateToProps,
+  {}
+)(AllRecipes);

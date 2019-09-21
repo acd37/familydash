@@ -18,9 +18,12 @@ module.exports = function(app) {
 
     db.family
       .findOne({
-        familyCode: req.user.familyCode
+        where: {
+          familyCode: req.user.familyCode
+        }
       })
       .then((family) => {
+        console.log(family.familyCode);
         if (!family) {
           errors.noProfile = 'There is no family for this user.';
           return res.status(404).json(errors);
@@ -41,9 +44,9 @@ module.exports = function(app) {
       .findOne({ where: { id } })
       .then((user) => {
         // Check the user exists
-        // if (user.familyCode) {
-        //   return res.status(404).json({ msg: 'User is already assigned a family' });
-        // }
+        if (user.familyCode) {
+          return res.status(404).json({ msg: 'User is already assigned a family' });
+        }
 
         const newFamily = {
           familyName
@@ -71,5 +74,43 @@ module.exports = function(app) {
           .catch((err) => console.log(err));
       })
       .catch((err) => console.log(err));
+  });
+
+  // @route POST  api/family/join
+  // @desc adds a new user to an existig family
+  app.post('/api/family/join', passport.authenticate('jwt', { session: false }), (req, res) => {
+    // const { familyCode } = req.body;
+    console.log(req.body.familyCode);
+    db.family
+      .findOne({
+        where: {
+          familyCode: req.body.familyCode
+        }
+      })
+      .then((family) => {
+        db.user
+          .update(
+            {
+              familyCode: family.familyCode,
+              familyId: family.id
+            },
+            {
+              where: {
+                id: req.user.id
+              }
+            }
+          )
+          .then(() => {
+            res.status(200).json({
+              user: 'User had successfully joined a family.',
+              updatedUser: true
+            });
+          })
+          .catch((err) => {
+            res.status(500).json({
+              user: 'User could not be added to the family at thistime'
+            });
+          });
+      });
   });
 };

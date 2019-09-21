@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getTodos, createTodo, deleteTodo } from '../actions/todoActions';
-import classnames from 'classnames';
 
 class Todo extends Component {
   state = {
@@ -29,8 +28,14 @@ class Todo extends Component {
 
   handleCreateTodo = (e) => {
     e.preventDefault();
-
     const { id } = this.props.family.family;
+    let errors = {};
+
+    if (!this.state.description) {
+      console.log('test');
+      errors.description = 'You must enter a task.';
+      return this.setState({ errors });
+    }
 
     const newTodo = {
       description: this.state.description,
@@ -46,47 +51,34 @@ class Todo extends Component {
 
   render() {
     const { todos } = this.props.todos;
-    const { family } = this.props.family;
     const { errors } = this.state;
 
     return (
       <div>
-        <h1> Tasks </h1>
+        <form onSubmit={this.handleCreateTodo} className='ui form'>
+          <div className={`field ${errors.description ? 'error' : ''}`}>
+            <label>{errors.description ? <p>{errors.description}</p> : 'Add Task'}</label>
 
-        <form onSubmit={this.handleCreateTodo}>
-          <div className='input-group mb-3'>
             <input
               value={this.state.description}
               onChange={this.onChange}
               name='description'
               type='text'
-              className={classnames('form-control', {
-                'is-invalid': errors.description
-              })}
-              placeholder='Task description...'
-              aria-label="Recipient's username"
-              aria-describedby='button-addon2'
+              placeholder='Add new...'
             />
-            <div className='input-group-append'>
-              <button className='btn btn-primary' type='submit' id='button-addon2'>
-                Submit
-              </button>
-            </div>
           </div>
-          {errors.description && <div className='invalid-feedback'>{errors.description}</div>}
+          <input type='submit' className='ui button' />
         </form>
 
-        <div>
+        <div style={{ marginTop: 15 }}>
           {todos.map((todo) => (
-            <div key={todo.id}>
-              <span
+            <div class='item' key={todo.id}>
+              <i
+                class='check icon'
                 id={todo.id}
                 onClick={this.handleCompleteTodo}
                 style={{ cursor: 'pointer', marginRight: 10 }}
-              >
-                ✔
-              </span>
-
+              ></i>
               {todo.description}
             </div>
           ))}

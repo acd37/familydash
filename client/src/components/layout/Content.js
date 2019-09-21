@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Route, Link } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import Tiles from '../tiles/Tiles';
 import Recipes from '../pages/Recipes';
 import Settings from '../pages/Settings';
+import UserContainer from '../users/UserContainer';
 
 const styles = {
   familyName: {
@@ -21,14 +22,14 @@ class Content extends Component {
     return (
       <div>
         <h1> Welcome, {user.firstName}!</h1>
-        <h6 style={styles.familyName}>{family.familyName}</h6>
+        <h5 style={styles.familyName}>{family.familyName}</h5>
 
         <Route exact path={'/dashboard'} component={() => <Tiles />} />
         <Route
           path={'/dashboard/recipes'}
           component={() => <Recipes recipes={this.props.recipes} />}
         />
-        <Route exact path={'/dashboard/settings'} component={() => <Settings />} />
+        <Route exact path={'/dashboard/settings'} component={() => <Settings user={user} />} />
       </div>
     );
   }

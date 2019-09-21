@@ -6,11 +6,14 @@ import { Link } from 'react-router-dom';
 function Navbar(props) {
   let authenticatedContent;
 
-  if (props.auth.isAuthenticated) {
+  if (
+    props.auth.isAuthenticated &&
+    Object.keys(props.family.family === null || props.family.family).length > 0
+  ) {
     authenticatedContent = (
       <>
         <Link className='item' to='/dashboard'>
-          <a href='#'>Home</a>
+          Home
         </Link>
 
         <Link className='item' to='/dashboard/recipes'>
@@ -20,7 +23,6 @@ function Navbar(props) {
         <Link className='item' to='/dashboard/settings'>
           Settings
         </Link>
-
         <span
           className='item'
           onClick={props.logoutUser}
@@ -45,7 +47,8 @@ function Navbar(props) {
 }
 
 const mapStateToProps = (state) => ({
-  auth: state.auth
+  auth: state.auth,
+  family: state.family
 });
 
 export default connect(

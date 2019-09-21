@@ -13,19 +13,26 @@ module.exports = function(sequelize, Sequelize) {
       type: Sequelize.STRING,
       defaultValue: 'No description given.'
     },
+    cookTime: {
+      type: Sequelize.INTEGER
+    },
+    prepTime: {
+      type: Sequelize.INTEGER
+    },
     ingredients: {
-      type: Sequelize.STRING,
+      type: Sequelize.TEXT,
       allowNull: false
     },
-    cookTime: {
-      type: Sequelize.INTEGER,
+    instructions: {
+      type: Sequelize.TEXT,
       allowNull: false
     },
     image: {
       type: Sequelize.STRING
     },
-    calorieCount: {
-      type: Sequelize.INTEGER
+    calendar: {
+      type: Sequelize.BOOLEAN,
+      defaultValue: false
     }
   });
 

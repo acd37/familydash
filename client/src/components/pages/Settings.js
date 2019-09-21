@@ -5,6 +5,7 @@ class Settings extends Component {
     return (
       <div>
         <h1> Settings</h1>
+        <p>Family code: {this.props.user.familyCode}</p>
       </div>
     );
   }
