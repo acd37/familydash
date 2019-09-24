@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { loginUser } from '../../actions/authActions';
 
@@ -7,7 +8,6 @@ class Login extends Component {
   constructor() {
     super();
     this.state = {
-      
       email: '',
       password: '',
       errors: {}
@@ -54,9 +54,15 @@ class Login extends Component {
     const { errors } = this.state;
 
     return (
-      <div style={{ width: 450, margin: '0 auto'}}>
-        <h1 style={{ textAlign: 'center', fontSize: '3rem', fontWeight: 300}}>FamilyDash</h1>
-        <img src={require('../../assets/images/paper-plane.png')} alt="paper plane logo" style={{ height: 100, margin: '30px auto', display: 'block'}} />
+      <div style={{ width: 450, margin: '0 auto' }}>
+        <h1 style={{ textAlign: 'center', fontSize: '3rem', fontWeight: 300 }}>FamilyDash</h1>
+        <h2 style={{ textAlign: 'center', fontWeight: 300 }}> Login</h2>
+
+        <img
+          src={require('../../assets/images/paper-plane.png')}
+          alt='paper plane logo'
+          style={{ height: 100, margin: '30px auto', display: 'block' }}
+        />
         <form onSubmit={this.onSubmit} className='ui form'>
           <div className={`field ${errors.email ? 'error' : ''}`}>
             <label>{errors.email ? <p>{errors.email}</p> : 'Email Address'}</label>
@@ -81,6 +87,9 @@ class Login extends Component {
           </div>
           <input type='submit' class='ui button' />
         </form>
+        <div style={{ marginTop: 10 }}>
+          Not registered? <Link to='/register'>Get Started!</Link>
+        </div>
       </div>
     );
   }

@@ -11,6 +11,7 @@ import PrivateRoute from './components/common/PrivateRoute';
 import Dashboard from './components/pages/Dashboard';
 import Login from './components/pages/Login';
 import Navbar from './components/layout/Navbar';
+import Register from './components/pages/Register';
 
 // Persistent Login
 if (localStorage.familydash) {
@@ -35,6 +36,7 @@ class App extends Component {
             <Navbar />
             <div className='wrapper'>
               <Route exact path='/' component={Login} />
+              <Route exact path='/register' component={Register} />
 
               <Switch>
                 <PrivateRoute path='/dashboard' component={Dashboard} />
