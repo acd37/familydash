@@ -11,13 +11,29 @@ class MealContainer extends Component {
   render() {
     const { recipes } = this.props;
 
-    return (
-      <div>
-        {recipes.map((recipe) => (
+    let content;
+
+    if (recipes.length >= 1) {
+      content = (
+        recipes.map((recipe) => (
           <p>
             <Link to={`/dashboard/recipes/recipe/${recipe.id}/`}>{recipe.name}</Link>{' '}
           </p>
-        ))}
+        ))
+      )
+    } else {
+      content = (
+        <div>
+          <p>You haven't added any meals yet.</p>
+          <Link to="/dashboard/recipes" class="ui button">Get Started</Link>
+        </div>
+
+      )
+    }
+
+    return (
+      <div>
+        {content}
       </div>
     );
   }

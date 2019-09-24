@@ -7,6 +7,7 @@ class Login extends Component {
   constructor() {
     super();
     this.state = {
+      
       email: '',
       password: '',
       errors: {}
@@ -53,8 +54,9 @@ class Login extends Component {
     const { errors } = this.state;
 
     return (
-      <div>
-        <h1>Login</h1>
+      <div style={{ width: 450, margin: '0 auto'}}>
+        <h1 style={{ textAlign: 'center', fontSize: '3rem', fontWeight: 300}}>FamilyDash</h1>
+        <img src={require('../../assets/images/paper-plane.png')} alt="paper plane logo" style={{ height: 100, margin: '30px auto', display: 'block'}} />
         <form onSubmit={this.onSubmit} className='ui form'>
           <div className={`field ${errors.email ? 'error' : ''}`}>
             <label>{errors.email ? <p>{errors.email}</p> : 'Email Address'}</label>

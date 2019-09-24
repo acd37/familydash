@@ -30,6 +30,10 @@ class Recipes extends Component {
             Search
           </Link>
         </div>
+
+      
+
+
         <Route exact path={'/dashboard/recipes/'} component={() => <AllRecipes />} />
         <Route exact path={'/dashboard/recipes/add'} component={AddRecipe} />
         <Route exact path={'/dashboard/recipes/recipe/:id'} component={Recipe} />

@@ -85,10 +85,12 @@ class SearchRecipe extends Component {
           </form>
         </div>
 
+        
         <h1> Search Results </h1>
-
         <div style={styles.tileWrapper}>
           {this.props.foundRecipes.map((recipe) => (
+            <div>
+            
             <Tile>
               <p>
                 <strong>{recipe.recipe.label}</strong>
@@ -105,6 +107,7 @@ class SearchRecipe extends Component {
                 Save{' '}
               </button>
             </Tile>
+            </div>
           ))}
         </div>
       </>
