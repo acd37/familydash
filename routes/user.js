@@ -12,6 +12,18 @@ module.exports = function(app) {
     });
   });
 
+  // @route GET api/user
+  // @desc gets current user profile
+  app.get('/api/user', passport.authenticate('jwt', { session: false }), (req, res) => {
+    db.user
+      .findOne({
+        where: {
+          id: req.user.id
+        }
+      })
+      .then((user) => res.json(user));
+  });
+
   // @route GET api/user/all
   // @desc gets all logged in users' family users
   app.get('/api/user/all', passport.authenticate('jwt', { session: false }), (req, res) => {
@@ -22,6 +34,41 @@ module.exports = function(app) {
         }
       })
       .then((users) => res.json(users));
+  });
+
+  // @route PUT api/users/
+  // @desc updates a user
+  app.put('/api/user', passport.authenticate('jwt', { session: false }), (req, res) => {
+    db.user
+      .update(
+        {
+          firstName: req.body.firstName,
+          lastName: req.body.lastName,
+          email: req.body.email
+        },
+        {
+          where: {
+            id: req.user.id
+          }
+        }
+      )
+      .then((isUpdated) => {
+        if (isUpdated) {
+          db.user
+            .findOne({
+              where: {
+                id: req.user.id
+              }
+            })
+            .then((user) => {
+              let updatedUser = user.get();
+              console.log(updatedUser);
+              res.json(updatedUser);
+            })
+            .catch((err) => console.log(err));
+        }
+      })
+      .catch((err) => console.log(err));
   });
 
   // @route POST api/users/

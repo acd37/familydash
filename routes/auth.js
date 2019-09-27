@@ -39,6 +39,7 @@ module.exports = function(app) {
                 id: user.id,
                 family: user.family,
                 familyCode: user.familyCode,
+                email: user.email,
                 firstName: user.firstName,
                 lastName: user.lastName,
                 updatedAt: user.updatedAt,

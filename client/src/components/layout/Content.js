@@ -19,20 +19,9 @@ class Content extends Component {
     const { user } = this.props.auth;
     const { family } = this.props.family;
 
-    let greeting;
-    const date = new Date();
-
-    if (date.getHours() >= 12 && date.getHours() < 18) {
-      greeting = "Good afternoon";
-    } else if( date.getHours() >= 18 && date.getHours() < 2) {
-      greeting = "Good evening"
-    } else if( date.getHours() >= 2 && date.getHours() < 12) {
-      greeting = "Good morning"
-    }
-
     return (
       <div>
-        <h1> {greeting}, {user.firstName}!</h1>
+        <h1>Hi, {user.firstName}!</h1>
         <h5 style={styles.familyName}>{family.familyName}</h5>
 
         <Route exact path={'/dashboard'} component={() => <Tiles />} />
@@ -40,7 +29,7 @@ class Content extends Component {
           path={'/dashboard/recipes'}
           component={() => <Recipes recipes={this.props.recipes} />}
         />
-        <Route exact path={'/dashboard/settings'} component={() => <Settings user={user} />} />
+        <Route exact path={'/dashboard/settings'} component={() => <Settings />} />
       </div>
     );
   }
