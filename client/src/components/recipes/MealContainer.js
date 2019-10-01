@@ -14,28 +14,23 @@ class MealContainer extends Component {
     let content;
 
     if (recipes.length >= 1) {
-      content = (
-        recipes.map((recipe) => (
-          <p>
-            <Link to={`/dashboard/recipes/recipe/${recipe.id}/`}>{recipe.name}</Link>{' '}
-          </p>
-        ))
-      )
+      content = recipes.map((recipe) => (
+        <p key={recipe.id}>
+          <Link to={`/dashboard/recipes/recipe/${recipe.id}/`}>{recipe.name}</Link>{' '}
+        </p>
+      ));
     } else {
       content = (
         <div>
           <p>You haven't added any meals yet.</p>
-          <Link to="/dashboard/recipes" class="ui button">Get Started</Link>
+          <Link to='/dashboard/recipes' className='ui button'>
+            Get Started
+          </Link>
         </div>
-
-      )
+      );
     }
 
-    return (
-      <div>
-        {content}
-      </div>
-    );
+    return <div>{content}</div>;
   }
 }
 

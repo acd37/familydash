@@ -2,17 +2,11 @@ import React from 'react';
 
 function User(props) {
   return (
-    <div>
-      <div className='ui card' style={{ width: 145, margin: '0 20px' }}>
-        <div className='image'>
-          <img src={require('../../assets/images/user.png')} />
-        </div>
-        <div class='content'>
-          <a class='header'>
-            {props.user.firstName} {props.user.lastName}
-          </a>
-        </div>
-      </div>
+    <div style={{ marginTop: 20 }}>
+      <img class='ui avatar image' src={props.user.thumbnail} />
+      <span>
+        {props.user.firstName} {props.user.lastName}
+      </span>
     </div>
   );
 }

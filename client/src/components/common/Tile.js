@@ -2,14 +2,14 @@ import React from 'react';
 
 function Tile(props) {
   return (
-    <div className='ui raised card' style={{ width: props.width || 400, marginTop: 0, marginBottom: 0 }}>
+    <div className='ui raised card' style={{ width: props.width || 400, margin: 10 }}>
       <div className='content'>
         {props.icon && (
-          <h2 class='ui header' style={{ marginBottom: 30 }}>
-            <i class={`${props.icon} icon`}></i>
-            <div class='content'>
+          <h2 className='ui header' style={{ marginBottom: 30 }}>
+            <i className={`${props.icon} icon`}></i>
+            <div className='content'>
               {props.title}
-              <div class='sub header'>{props.subTitle}</div>
+              <div className='sub header'>{props.subTitle}</div>
             </div>
           </h2>
         )}

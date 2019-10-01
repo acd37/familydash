@@ -6,7 +6,9 @@ import { getUsers } from '../../actions/userActions';
 const styles = {
   wrapper: {
     display: 'flex',
-    justifyContent: 'center'
+    justifyContent: 'space-between',
+    flexWrap: 'wrap',
+    flexDirection: 'column'
   }
 };
 
@@ -22,7 +24,7 @@ class UserContainer extends Component {
     return (
       <div style={styles.wrapper}>
         {users.map((user) => (
-          <User user={user} />
+          <User key={user.id} user={user} />
         ))}
       </div>
     );

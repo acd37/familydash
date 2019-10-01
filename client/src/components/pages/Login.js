@@ -85,7 +85,7 @@ class Login extends Component {
               onChange={this.onChange}
             />
           </div>
-          <input type='submit' class='ui button' />
+          <input type='submit' className='ui button' />
         </form>
         <div style={{ marginTop: 10 }}>
           Not registered? <Link to='/register'>Get Started!</Link>

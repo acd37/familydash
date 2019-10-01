@@ -4,7 +4,6 @@ import { Route } from 'react-router-dom';
 import Tiles from '../tiles/Tiles';
 import Recipes from '../pages/Recipes';
 import Settings from '../pages/Settings';
-import UserContainer from '../users/UserContainer';
 
 const styles = {
   familyName: {

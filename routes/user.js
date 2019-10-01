@@ -2,6 +2,7 @@ module.exports = function(app) {
   const bcrypt = require('bcryptjs');
   const db = require('../models');
   const passport = require('passport');
+  const gravatar = require('gravatar');
 
   // @route GET api/users/test
   // @desc tests the users api route
@@ -84,11 +85,18 @@ module.exports = function(app) {
         if (user) {
           return res.status(400).json({ email: 'This email already exists.' });
         } else {
+          const thumbnail = gravatar.url(req.body.email, {
+            s: '200',
+            r: 'pg',
+            d: 'mm'
+          });
+
           const newUser = {
             firstName: req.body.firstName,
             lastName: req.body.lastName,
             email: req.body.email,
-            password: req.body.password
+            password: req.body.password,
+            thumbnail
           };
 
           bcrypt.genSalt(10, (err, salt) => {

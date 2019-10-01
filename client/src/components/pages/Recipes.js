@@ -15,8 +15,6 @@ class Recipes extends Component {
   }
 
   render() {
-    const { recipes } = this.props.recipes;
-
     return (
       <div>
         <div style={{ marginBottom: 30 }}>
@@ -30,9 +28,6 @@ class Recipes extends Component {
             Search
           </Link>
         </div>
-
-      
-
 
         <Route exact path={'/dashboard/recipes/'} component={() => <AllRecipes />} />
         <Route exact path={'/dashboard/recipes/add'} component={AddRecipe} />

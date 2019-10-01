@@ -35,9 +35,6 @@ class Tiles extends Component {
         >
           <MealContainer />
         </Tile>
-        <Tile title='Location' subTitle='Where are your folks?' icon='map'>
-          <Location />
-        </Tile>
       </div>
     );
   }

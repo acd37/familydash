@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Tile from '../common/Tile';
 import { connect } from 'react-redux';
 import { getCurrentUser, updateUser } from '../../actions/userActions';
-import { isError } from 'util';
 
 const styles = {
   wrapper: {
