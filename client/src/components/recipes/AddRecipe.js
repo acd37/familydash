@@ -49,6 +49,7 @@ class AddRecipe extends Component {
 
       this.setState({
         name: '',
+        description: '',
         ingredients: [''],
         prepTime: '',
         cookTime: '',
@@ -82,6 +83,36 @@ class AddRecipe extends Component {
     this.setState((prevState) => ({
       ingredients: [...prevState.ingredients, '']
     }));
+  };
+
+  removeIngredient = (e) => {
+    let arr = [...this.state.ingredients];
+    console.log(arr);
+    let index = arr.indexOf(e.target.value);
+    console.log(e.target.value);
+    console.log(index);
+
+    if (index !== -1) {
+      arr.splice(index, 1);
+      this.setState({
+        ingredients: arr
+      });
+    }
+  };
+
+  removeInstruction = (e) => {
+    let arr = [...this.state.instructions];
+    console.log(arr);
+    let index = arr.indexOf(e.target.value);
+    console.log(e.target.value);
+    console.log(index);
+
+    if (index !== -1) {
+      arr.splice(index, 1);
+      this.setState({
+        instructions: arr
+      });
+    }
   };
 
   addInstruction = (e) => {
@@ -168,10 +199,19 @@ class AddRecipe extends Component {
                   type='text'
                   data-id={index}
                   id={ingredientId}
-                  value={ingredients[index].ingredient}
+                  value={ingredients[index]}
                   onChange={this.onChange}
                   className='ingredient'
-                />
+                  style={{ width: '75%' }}
+                />{' '}
+                <button
+                  value={ingredients[index]}
+                  onClick={this.removeIngredient}
+                  className='ui button'
+                  style={{ padding: '12px', marginLeft: 5 }}
+                >
+                  Remove
+                </button>
               </div>
             );
           })}
@@ -201,7 +241,16 @@ class AddRecipe extends Component {
                   value={instructions[index]}
                   onChange={this.onChange}
                   className='instruction'
-                />
+                  style={{ width: '75%' }}
+                />{' '}
+                <button
+                  value={instructions[index]}
+                  onClick={this.removeInstruction}
+                  className='ui button'
+                  style={{ padding: '12px', marginLeft: 5 }}
+                >
+                  Remove
+                </button>
               </div>
             );
           })}
@@ -212,6 +261,7 @@ class AddRecipe extends Component {
             className='ui button'
             value='Add Step'
           />
+          <div className='ui divider'></div>
 
           <input type='submit' className='ui button' value='Submit Recipe' />
         </form>

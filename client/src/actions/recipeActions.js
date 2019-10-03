@@ -47,9 +47,9 @@ export const searchRecipes = (query) => (dispatch) => {
 };
 
 // get recipes
-export const getRecipes = (familyId) => (dispatch) => {
+export const getRecipes = () => (dispatch) => {
   axios
-    .get(`/api/recipe/${familyId}`)
+    .get(`/api/recipe/`)
     .then((res) =>
       dispatch({
         type: SET_RECIPES,
@@ -101,19 +101,21 @@ export const deleteRecipe = (recipeId, familyId) => (dispatch) => {
 };
 
 // update recipe
-export const updateRecipe = (recipe, familyId) => (dispatch) => {
+export const updateRecipe = (recipe) => (dispatch) => {
   axios
-    .put(`/api/recipe/${familyId}/${recipe.id}/`, recipe)
+    .put(`/api/recipe/${recipe.id}/`, recipe)
     .then((res) => {
+      console.log(res.data);
+      dispatch(getRecipes());
       dispatch({
-        type: SET_RECIPES,
+        type: SET_RECIPE,
         payload: res.data
       });
     })
     .catch((err) =>
       dispatch({
-        type: SET_RECIPES,
-        payload: []
+        type: SET_RECIPE,
+        payload: {}
       })
     );
 };

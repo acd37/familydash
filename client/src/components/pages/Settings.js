@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Tile from '../common/Tile';
 import { connect } from 'react-redux';
 import { getCurrentUser, updateUser } from '../../actions/userActions';
+import Moment from 'react-moment';
 
 const styles = {
   wrapper: {
@@ -86,7 +87,10 @@ class Settings extends Component {
             <p>
               <strong>Profile </strong>
             </p>
-            <p> Member since: {this.state.memberSince} </p>
+            <p>
+              {' '}
+              Member since: <Moment format='DD MMM YYYY' date={this.state.memberSince} />
+            </p>
             <div class='ui divider'></div>
 
             {this.state.editable ? (

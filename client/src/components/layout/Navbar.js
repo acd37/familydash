@@ -16,20 +16,16 @@ function Navbar(props) {
           Home
         </Link>
 
-        <Link className='item' to='/dashboard/recipes'>
-          Recipes
-        </Link>
-
-        <Link className='item' to='/dashboard/settings'>
-          Settings
-        </Link>
-        <span
-          className='item'
-          onClick={props.logoutUser}
-          style={{ cursor: 'pointer', color: '#fff' }}
-        >
-          Logout
-        </span>
+        <div className='right menu'>
+          <Link className='item' to='/dashboard/settings'>
+            Settings
+          </Link>
+          <div className='item'>
+            <button className='ui button' onClick={props.logoutUser}>
+              Logout
+            </button>
+          </div>
+        </div>
       </>
     );
   } else {

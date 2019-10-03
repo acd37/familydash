@@ -8,6 +8,10 @@ class MealContainer extends Component {
     this.props.getCalendarMeals();
   }
 
+  viewAllRecipes = () => {
+    this.props.history.push('/recipes');
+  };
+
   render() {
     const { recipes } = this.props;
 
@@ -15,9 +19,12 @@ class MealContainer extends Component {
 
     if (recipes.length >= 1) {
       content = recipes.map((recipe) => (
-        <p key={recipe.id}>
-          <Link to={`/dashboard/recipes/recipe/${recipe.id}/`}>{recipe.name}</Link>{' '}
-        </p>
+        <div class='item' key={recipe.id}>
+          <i className='large utensils middle aligned icon' id={recipe.id} />
+          <div className='content'>
+            <Link to={`/dashboard/recipes/recipe/${recipe.id}/`}>{recipe.name}</Link>{' '}
+          </div>
+        </div>
       ));
     } else {
       content = (
@@ -30,7 +37,15 @@ class MealContainer extends Component {
       );
     }
 
-    return <div>{content}</div>;
+    return (
+      <div>
+        <Link className='ui button' to='/dashboard/recipes'>
+          All Recipes
+        </Link>
+
+        <div className='ui relaxed divided list'>{content}</div>
+      </div>
+    );
   }
 }
 

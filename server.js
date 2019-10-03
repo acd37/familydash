@@ -26,6 +26,8 @@ require('./routes/auth')(app);
 require('./routes/todo')(app);
 require('./routes/family')(app);
 require('./routes/recipe')(app);
+require('./routes/date')(app);
+require('./routes/finance')(app);
 
 // Models
 const db = require('./models');

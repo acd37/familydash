@@ -45,11 +45,11 @@ module.exports = function(app) {
 
   // @route  GET api/recipe/:familyId
   // @desc gets all recipes
-  app.get('/api/recipe/:familyId', passport.authenticate('jwt', { session: false }), (req, res) => {
+  app.get('/api/recipe/', passport.authenticate('jwt', { session: false }), (req, res) => {
     db.recipe
       .findAll({
         where: {
-          familyId: req.params.familyId
+          familyId: req.user.familyId
         }
       })
       .then((recipes) => {
@@ -77,6 +77,7 @@ module.exports = function(app) {
           const formattedRecipe = {
             name: recipe.name,
             description: recipe.description,
+            calorieCount: recipe.caloriteCount,
             cookTime: recipe.cookTime,
             prepTime: recipe.prepTime,
             ingredients: JSON.parse(recipe.ingredients),
@@ -94,36 +95,44 @@ module.exports = function(app) {
 
   // @route  PUT api/recipe/:id
   // @desc updates a recipe item
-  app.put(
-    '/api/recipe/:familyId/:id',
-    passport.authenticate('jwt', { session: false }),
-    (req, res) => {
-      const updatedRecipe = {
-        calendar: req.body.calendar,
-        name: req.body.name,
-        description: req.body.description,
-        ingredients: req.body.ingredients,
-        cookTime: req.body.cookTime,
-        image: req.body.image,
-        calorieCount: req.body.calorieCount
-      };
+  app.put('/api/recipe/:id', passport.authenticate('jwt', { session: false }), (req, res) => {
+    const updatedRecipe = {
+      calendar: req.body.calendar,
+      name: req.body.name,
+      description: req.body.description,
+      ingredients: JSON.stringify(req.body.ingredients),
+      instructions: JSON.stringify(req.body.instructions),
+      cookTime: req.body.cookTime,
+      image: req.body.image,
+      calorieCount: req.body.calorieCount
+    };
 
-      db.recipe.update(updatedRecipe, { where: { id: req.params.id } }).then(() => {
-        db.recipe
-          .findAll({
-            where: {
-              familyId: req.params.familyId
-            }
-          })
-          .then((recipes) => {
-            res.status(200).json(recipes);
-          })
-          .catch((err) => {
-            res.status(500).json(err);
-          });
-      });
-    }
-  );
+    db.recipe.update(updatedRecipe, { where: { id: req.params.id } }).then(() => {
+      db.recipe
+        .findOne({
+          where: {
+            id: req.params.id
+          }
+        })
+        .then((recipe) => {
+          const formattedRecipe = {
+            name: recipe.name,
+            description: recipe.description,
+            calorieCount: recipe.caloriteCount,
+            cookTime: recipe.cookTime,
+            prepTime: recipe.prepTime,
+            ingredients: JSON.parse(recipe.ingredients),
+            instructions: JSON.parse(recipe.instructions),
+            image: recipe.image
+          };
+          console.log(formattedRecipe);
+          res.status(200).json(formattedRecipe);
+        })
+        .catch((err) => {
+          res.status(500).json(err);
+        });
+    });
+  });
 
   // @route  DELETE api/recipe/:id
   // @desc deletes a recipe item

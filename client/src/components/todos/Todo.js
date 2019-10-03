@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getTodos, createTodo, deleteTodo } from '../actions/todoActions';
+import { getTodos, createTodo, deleteTodo } from '../../actions/todoActions';
+import Moment from 'react-moment';
+import 'moment-timezone';
 
 class Todo extends Component {
   state = {
@@ -67,19 +69,27 @@ class Todo extends Component {
               placeholder='Add new...'
             />
           </div>
-          <input type='submit' className='ui button' />
+          <input type='submit' value='Add' className='ui button' />
         </form>
 
-        <div style={{ marginTop: 15 }}>
+        <div className='ui relaxed divided list'>
           {todos.map((todo) => (
             <div class='item' key={todo.id}>
               <i
-                class='check icon'
+                className='large check middle aligned icon'
                 id={todo.id}
                 onClick={this.handleCompleteTodo}
                 style={{ cursor: 'pointer', marginRight: 10 }}
-              ></i>
-              {todo.description}
+              />
+              <div className='content'>
+                <div className='header'>{todo.description}</div>
+                <div
+                  style={{ fontSize: '0.7rem', color: 'rgba(0,0,0,0.4)' }}
+                  className='description'
+                >
+                  added <Moment fromNow ago date={todo.createdAt} /> ago
+                </div>
+              </div>
             </div>
           ))}
         </div>

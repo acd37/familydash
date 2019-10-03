@@ -2,7 +2,15 @@ import React from 'react';
 
 function Tile(props) {
   return (
-    <div className='ui raised card' style={{ width: props.width || 400, margin: 10 }}>
+    <div
+      className='ui raised card'
+      style={{
+        width: props.width || 600,
+        maxWidth: '90%',
+        margin: '10px 10px 10px 0',
+        borderTop: props.borderTop || 'none'
+      }}
+    >
       <div className='content'>
         {props.icon && (
           <h2 className='ui header' style={{ marginBottom: 30 }}>

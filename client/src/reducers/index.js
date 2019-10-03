@@ -6,6 +6,7 @@ import todoReducer from './todoReducer';
 import recipeReducer from './recipeReducer';
 import loadingReducer from './loadingReducer';
 import userReducer from './userReducer';
+import datesReducer from './datesReducer';
 
 export default combineReducers({
   auth: authReducer,
@@ -14,5 +15,6 @@ export default combineReducers({
   todos: todoReducer,
   recipes: recipeReducer,
   users: userReducer,
-  loading: loadingReducer
+  loading: loadingReducer,
+  dates: datesReducer
 });

@@ -19,6 +19,9 @@ module.exports = function(sequelize, Sequelize) {
     prepTime: {
       type: Sequelize.INTEGER
     },
+    // calorieCount: {
+    //   type: Sequelize.INTEGER
+    // },
     ingredients: {
       type: Sequelize.TEXT,
       allowNull: false
@@ -28,7 +31,9 @@ module.exports = function(sequelize, Sequelize) {
       allowNull: false
     },
     image: {
-      type: Sequelize.STRING
+      type: Sequelize.STRING,
+      allowNull: false,
+      defaultValue: ''
     },
     calendar: {
       type: Sequelize.BOOLEAN,
