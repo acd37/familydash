@@ -453,7 +453,7 @@ const ingredients = [
     image: 'toffee'
   },
   {
-    descriptor: ['tomato', 'tomatoes'],
+    descriptor: ['tomatoes', 'tomato'],
     image: 'tomato'
   },
   {

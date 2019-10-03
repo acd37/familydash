@@ -7,7 +7,6 @@ function Tile(props) {
       style={{
         width: props.width || 600,
         maxWidth: '90%',
-        margin: '10px 10px 10px 0',
         borderTop: props.borderTop || 'none'
       }}
     >

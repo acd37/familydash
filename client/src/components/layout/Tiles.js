@@ -5,6 +5,7 @@ import Dates from '../dates/Dates';
 import UserContainer from '../users/UserContainer';
 import MealContainer from '../recipes/MealContainer';
 import Masonry from 'react-masonry-css';
+import Budget from '../finance/Budget';
 
 const breakpointColumnsObj = {
   default: 3,
@@ -16,11 +17,7 @@ const breakpointColumnsObj = {
 class Tiles extends Component {
   render() {
     return (
-      <Masonry
-        breakpointCols={breakpointColumnsObj}
-        className='my-masonry-grid'
-        columnClassName='my-masonry-grid_column'
-      >
+      <Masonry breakpointCols={breakpointColumnsObj}>
         <Tile
           title='Family Members'
           subTitle='All members of your group are listed here.'
@@ -64,7 +61,9 @@ class Tiles extends Component {
           subTitle='Do you really need those new jeans?'
           icon='pound'
           borderTop='5px solid #8395a7'
-        ></Tile>
+        >
+          <Budget />
+        </Tile>
       </Masonry>
     );
   }

@@ -7,6 +7,7 @@ import recipeReducer from './recipeReducer';
 import loadingReducer from './loadingReducer';
 import userReducer from './userReducer';
 import datesReducer from './datesReducer';
+import financeReducer from './financeReducer';
 
 export default combineReducers({
   auth: authReducer,
@@ -16,5 +17,6 @@ export default combineReducers({
   recipes: recipeReducer,
   users: userReducer,
   loading: loadingReducer,
-  dates: datesReducer
+  dates: datesReducer,
+  finance: financeReducer
 });
