@@ -2,11 +2,12 @@ export const GET_ERRORS = 'GET_ERRORS';
 export const SET_CURRENT_USER = 'SET_CURRENT_USER';
 export const GET_FAMILY = 'GET_FAMILY';
 export const LOADING = 'LOADING';
+export const REMOVE_LOADING = 'REMOVE_LOADING';
 export const SET_TODOS = 'SET_TODOS';
 export const SET_RECIPES = 'SET_RECIPES';
 export const SET_USERS = 'SET_USERS';
 export const SET_USER = 'SET_USER';
-export const REMOVE_LOADING = 'REMOVE_LOADING';
+
 export const SET_FOUND_RECIPES = 'SET_FOUND_RECIPES';
 export const SEARCHING_RECIPES = 'SEARCHING_RECIPES';
 export const SET_RECIPE = 'SET_RECIPE';

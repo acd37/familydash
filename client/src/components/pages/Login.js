@@ -54,7 +54,7 @@ class Login extends Component {
     const { errors } = this.state;
 
     return (
-      <div style={{ width: 450, margin: '0 auto' }}>
+      <div style={{ width: 450, margin: '0 auto', maxWidth: '90%' }}>
         <h1 style={{ textAlign: 'center', fontSize: '3rem', fontWeight: 300 }}>FamilyDash</h1>
         <h2 style={{ textAlign: 'center', fontWeight: 300 }}> Login</h2>
 

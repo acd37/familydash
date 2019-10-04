@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { GET_FAMILY } from './types';
+import { GET_FAMILY, LOADING, REMOVE_LOADING } from './types';
 
 // add finance key to family
 export const updateFamily = (data) => (dispatch) => {
@@ -34,18 +34,27 @@ export const joinFamily = (familyCode) => (dispatch) => {
 
 // get family
 export const getFamily = () => (dispatch) => {
+  dispatch({
+    type: LOADING
+  });
   axios
     .get('/api/family')
-    .then((res) =>
+    .then((res) => {
+      dispatch({
+        type: REMOVE_LOADING
+      });
       dispatch({
         type: GET_FAMILY,
         payload: res.data
-      })
-    )
-    .catch((err) =>
+      });
+    })
+    .catch((err) => {
+      dispatch({
+        type: REMOVE_LOADING
+      });
       dispatch({
         type: GET_FAMILY,
         payload: {}
-      })
-    );
+      });
+    });
 };

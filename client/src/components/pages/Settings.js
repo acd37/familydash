@@ -6,10 +6,9 @@ import Moment from 'react-moment';
 
 const styles = {
   wrapper: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fill, 600px)',
-    gridColumnGap: 25,
-    gridRowGap: 25
+    display: 'flex',
+    justifyContent: 'flex-start',
+    flexWrap: 'wrap'
   }
 };
 

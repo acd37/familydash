@@ -60,9 +60,11 @@ class Todo extends Component {
   };
 
   getAssignedUserProfilePhoto = (assignedUserId) => {
-    const { users } = this.props.users;
-    const assignedUser = users.filter((user) => user.id === assignedUserId);
-    return assignedUser[0].thumbnail;
+    if (this.props.users.users.length > 0) {
+      const { users } = this.props.users;
+      const assignedUser = users.filter((user) => user.id === assignedUserId);
+      return assignedUser[0].thumbnail;
+    }
   };
 
   handleTaskAssignment = (todo, userId) => {
@@ -71,7 +73,6 @@ class Todo extends Component {
 
     // assign task
     todo.assignedUser = userId;
-
     this.props.updateTodo(todo);
   };
 
