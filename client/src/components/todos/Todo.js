@@ -1,8 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getTodos, createTodo, deleteTodo } from '../../actions/todoActions';
+import { getTodos, createTodo, deleteTodo, updateTodo } from '../../actions/todoActions';
 import Moment from 'react-moment';
 import 'moment-timezone';
+import { Popup, List, Image } from 'semantic-ui-react';
+
+const styles = {
+  popup: {
+    padding: 0,
+    minWidth: 200
+  }
+};
 
 class Todo extends Component {
   state = {
@@ -51,8 +59,25 @@ class Todo extends Component {
     });
   };
 
+  getAssignedUserProfilePhoto = (assignedUserId) => {
+    const { users } = this.props.users;
+    const assignedUser = users.filter((user) => user.id === assignedUserId);
+    return assignedUser[0].thumbnail;
+  };
+
+  handleTaskAssignment = (todo, userId) => {
+    console.log(todo);
+    console.log(userId);
+
+    // assign task
+    todo.assignedUser = userId;
+
+    this.props.updateTodo(todo);
+  };
+
   render() {
     const { todos } = this.props.todos;
+    const { users } = this.props.users;
     const { errors } = this.state;
 
     return (
@@ -75,12 +100,88 @@ class Todo extends Component {
         <div className='ui relaxed divided list'>
           {todos.map((todo) => (
             <div class='item' key={todo.id}>
-              <i
-                className='large check middle aligned icon'
-                id={todo.id}
-                onClick={this.handleCompleteTodo}
-                style={{ cursor: 'pointer', marginRight: 10 }}
-              />
+              <div className='right floated content'>
+                <i
+                  className='check middle aligned icon'
+                  id={todo.id}
+                  onClick={this.handleCompleteTodo}
+                  style={{ cursor: 'pointer', marginRight: 10 }}
+                />
+              </div>
+              {todo.assignedUser !== null ? (
+                <Popup
+                  content={
+                    <List selection verticalAlign='middle' size='tiny'>
+                      {users.map((user) => (
+                        <List.Item onClick={() => this.handleTaskAssignment(todo, user.id)}>
+                          <Image avatar src={user.thumbnail} />
+                          <List.Content>
+                            <List.Header>
+                              {user.firstName} {user.lastName}
+                            </List.Header>
+                          </List.Content>
+                        </List.Item>
+                      ))}
+                      <List.Item onClick={() => this.handleTaskAssignment(todo, null)}>
+                        <Image avatar src={require('../../assets/images/user.png')} />
+                        <List.Content>
+                          <List.Header>Unassign</List.Header>
+                        </List.Content>
+                      </List.Item>
+                    </List>
+                  }
+                  hoverable
+                  wide
+                  hideOnScroll
+                  basic
+                  style={styles.popup}
+                  key={todo.id}
+                  trigger={
+                    <img
+                      style={{ cursor: 'pointer' }}
+                      className='ui avatar image'
+                      src={this.getAssignedUserProfilePhoto(todo.assignedUser)}
+                    />
+                  }
+                />
+              ) : (
+                <Popup
+                  content={
+                    <List selection verticalAlign='middle' size='tiny'>
+                      {users.map((user) => (
+                        <List.Item onClick={() => this.handleTaskAssignment(todo, user.id)}>
+                          <Image avatar src={user.thumbnail} />
+                          <List.Content>
+                            <List.Header>
+                              {user.firstName} {user.lastName}
+                            </List.Header>
+                          </List.Content>
+                        </List.Item>
+                      ))}
+                      <List.Item onClick={() => this.handleTaskAssignment(todo, null)}>
+                        <Image avatar src={require('../../assets/images/user.png')} />
+                        <List.Content>
+                          <List.Header>Unassign</List.Header>
+                        </List.Content>
+                      </List.Item>
+                    </List>
+                  }
+                  hoverable
+                  wide
+                  hideOnScroll
+                  basic
+                  style={styles.popup}
+                  key={todo.id}
+                  trigger={
+                    <img
+                      style={{ cursor: 'pointer' }}
+                      className='ui avatar image'
+                      src={require('../../assets/images/user.png')}
+                    />
+                  }
+                />
+              )}
+
               <div className='content'>
                 <div className='header'>{todo.description}</div>
                 <div
@@ -99,6 +200,7 @@ class Todo extends Component {
 }
 
 const mapStateToProps = (state) => ({
+  users: state.users,
   auth: state.auth,
   family: state.family,
   todos: state.todos
@@ -106,5 +208,5 @@ const mapStateToProps = (state) => ({
 
 export default connect(
   mapStateToProps,
-  { getTodos, createTodo, deleteTodo }
+  { getTodos, createTodo, deleteTodo, updateTodo }
 )(Todo);

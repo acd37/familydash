@@ -5,7 +5,7 @@ import { SET_BUDGET_CATEGORIES } from './types';
 // get dates
 export const getBudgetCategories = () => (dispatch) => {
   axios
-    .get(`/api/finance/categories`)
+    .get(`/api/finance/categories/`)
     .then((res) =>
       dispatch({
         type: SET_BUDGET_CATEGORIES,

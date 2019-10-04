@@ -19,6 +19,8 @@ class RecipeCard extends Component {
     const newStatus = !recipe.calendar;
 
     const updatedRecipe = { ...recipe, calendar: newStatus };
+    updatedRecipe.ingredients = JSON.parse(updatedRecipe.ingredients);
+    updatedRecipe.instructions = JSON.parse(updatedRecipe.instructions);
 
     this.props.updateRecipe(updatedRecipe, recipe.familyId);
   };

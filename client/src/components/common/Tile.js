@@ -6,6 +6,7 @@ function Tile(props) {
       className='ui raised card'
       style={{
         width: props.width || 600,
+        margin: '10px 10px 10px 0',
         maxWidth: '90%',
         borderTop: props.borderTop || 'none'
       }}

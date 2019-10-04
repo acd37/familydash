@@ -113,4 +113,18 @@ module.exports = function(app) {
           });
       });
   });
+
+  app.post('/api/family/ynabKey', passport.authenticate('jwt', { session: false }), (req, res) => {
+    const financeKey = req.body.financeKey;
+    const budgetId = req.body.budgetId;
+
+    db.family
+      .update({ financeKey, budgetId }, { where: { familyCode: req.user.familyCode } })
+      .then((isUpdated) => {
+        if (isUpdated) {
+          res.json(isUpdated);
+        }
+      })
+      .catch((err) => console.log(err));
+  });
 };

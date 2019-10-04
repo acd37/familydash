@@ -2,6 +2,23 @@ import axios from 'axios';
 
 import { SET_TODOS } from './types';
 
+export const updateTodo = (todo) => (dispatch) => {
+  let req = {
+    url: `/api/todo/${todo.id}`,
+    method: 'PUT',
+    data: todo
+  };
+
+  axios(req)
+    .then((res) => {
+      dispatch({
+        type: SET_TODOS,
+        payload: res.data
+      });
+    })
+    .catch((err) => console.log(err));
+};
+
 // get todos
 export const getTodos = (familyId) => (dispatch) => {
   axios
@@ -12,12 +29,7 @@ export const getTodos = (familyId) => (dispatch) => {
         payload: res.data
       })
     )
-    .catch((err) =>
-      dispatch({
-        type: SET_TODOS,
-        payload: []
-      })
-    );
+    .catch((err) => console.log(err));
 };
 
 // create todo

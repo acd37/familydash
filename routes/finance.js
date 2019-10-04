@@ -2,8 +2,6 @@ module.exports = function(app) {
   const db = require('../models');
   const passport = require('passport');
   const ynab = require('ynab');
-  const accessToken = process.env.YNAB_TOKEN;
-  const ynabAPI = new ynab.API(accessToken);
 
   // @route GET api/users/test
   // @desc tests the users api route
@@ -16,16 +14,31 @@ module.exports = function(app) {
 
   // @route GET api/budget/categories
   // @desc gets budget categories from ynab
-  app.get('/api/finance/categories', (req, res) => {
-    const budgetResponse = ynabAPI.categories
-      .getCategories(process.env.YNAB_BUDGET_ID)
-      .then((response) => {
-        const categories = response.data.category_groups;
+  app.get(
+    '/api/finance/categories',
+    passport.authenticate('jwt', { session: false }),
+    (req, res) => {
+      db.family
+        .findOne({
+          where: {
+            familyCode: req.user.familyCode
+          }
+        })
+        .then((family) => {
+          const accessToken = family.financeKey;
+          const ynabAPI = new ynab.API(accessToken);
 
-        res.json(categories);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  });
+          const budgetResponse = ynabAPI.categories
+            .getCategories(family.budgetId)
+            .then((response) => {
+              const categories = response.data.category_groups;
+              res.json(categories);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        })
+        .catch((err) => console.log(err));
+    }
+  );
 };

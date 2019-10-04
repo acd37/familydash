@@ -59,6 +59,7 @@ module.exports = function(app) {
     const updatedTodo = {
       description: req.body.todo,
       isCompleted: req.body.isCompleted,
+      assignedUser: req.body.assignedUser,
       familyId: req.body.familyId
     };
 

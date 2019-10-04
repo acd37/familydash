@@ -339,6 +339,7 @@ class Recipe extends Component {
                           value={this.state.instructions[index]}
                           onChange={this.onChange}
                           className='instruction'
+                          style={{ width: '75%' }}
                         />{' '}
                         <button
                           value={this.state.instructions[index]}

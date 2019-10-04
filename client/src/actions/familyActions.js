@@ -2,6 +2,14 @@ import axios from 'axios';
 
 import { GET_FAMILY } from './types';
 
+// add finance key to family
+export const updateFamily = (data) => (dispatch) => {
+  axios
+    .post('/api/family/ynabKey', { financeKey: data.apiKey, budgetId: data.budgetId })
+    .then((res) => dispatch(getFamily()))
+    .catch((err) => console.log(err));
+};
+
 // create new family
 export const createFamily = (familyName) => (dispatch) => {
   axios
