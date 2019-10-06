@@ -222,7 +222,7 @@ const ingredients = [
     image: 'honey'
   },
   {
-    descriptor: ['hotdog', 'hotdogs'],
+    descriptor: ['hotdog', 'hotdogs', 'dog'],
     image: 'hot-dog-1'
   },
   {

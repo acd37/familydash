@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import NewUser from '../layout/NewUser';
 import Content from '../layout/Content';
 import { getFamily } from '../../actions/familyActions';
+import Navbar from '../layout/Navbar';
 
 const styles = {
   loadingWrapper: {
@@ -41,7 +42,13 @@ class Dashboard extends Component {
     else if (Object.keys(family).length > 0) {
       dashboardContent = <Content />;
     }
-    return <div>{dashboardContent}</div>;
+    return (
+      <div>
+        {' '}
+        <Navbar />
+        {dashboardContent}
+      </div>
+    );
   }
 }
 

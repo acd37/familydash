@@ -4,6 +4,43 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { loginUser } from '../../actions/authActions';
 
+const styles = {
+  appHeader: {
+    background:
+      'linear-gradient(to right, rgba(146, 254, 157,0.4) 0%, rgba(0, 201, 255, 0.4) 100%)',
+    height: 300,
+    fontWeight: 300,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center'
+  },
+  svg: {
+    width: '100%',
+    transform: 'translateY(-80px)'
+  },
+  header: {
+    marginTop: 30,
+    fontWeight: '600',
+    fontSize: '4em',
+    letterSpacing: 1.2,
+    maxWidth: '100%'
+  },
+  cardWrapper: {
+    position: 'absolute',
+    left: '50%',
+    marginLeft: '-175px',
+    top: '50%',
+    marginTop: '-100px',
+    borderRadius: 10,
+    backgroundColor: '#eee',
+    width: 350,
+    padding: 30,
+    maxWidth: '90%',
+    boxShadow: '0 12px 15px rgba(0,0,0,0.1), 0 17px 50px rgba(0,0,0,0.1)'
+    // transform: 'translateY(-250px)'
+  }
+};
+
 class Login extends Component {
   constructor() {
     super();
@@ -54,41 +91,86 @@ class Login extends Component {
     const { errors } = this.state;
 
     return (
-      <div style={{ width: 450, margin: '0 auto', maxWidth: '90%' }}>
-        <h1 style={{ textAlign: 'center', fontSize: '3rem', fontWeight: 300 }}>FamilyDash</h1>
-        <h2 style={{ textAlign: 'center', fontWeight: 300 }}> Login</h2>
-
-        <img
-          src={require('../../assets/images/paper-plane.png')}
-          alt='paper plane logo'
-          style={{ height: 100, margin: '30px auto', display: 'block' }}
-        />
-        <form onSubmit={this.onSubmit} className='ui form'>
-          <div className={`field ${errors.email ? 'error' : ''}`}>
-            <label>{errors.email ? <p>{errors.email}</p> : 'Email Address'}</label>
-            <input
-              placeholder='Email Address'
-              name='email'
-              type='email'
-              value={this.state.email}
-              onChange={this.onChange}
+      <div style={{ position: 'relative' }}>
+        <div style={styles.appHeader}></div>
+        <div style={styles.svg}>
+          <svg
+            xmlns='http://www.w3.org/2000/svg'
+            fill='#fff'
+            opacity='1'
+            width='100%'
+            height='80'
+            preserveAspectRatio='none'
+            viewBox='0 0 1600 200'
+          >
+            <path
+              d='M-8,95.3C-8,95.3,189,2,398,2s604,184.7,800,184.7s412-91.4,412-91.4V271H-8V95.3
+  z'
             />
-          </div>
-
-          <div className={`field ${errors.password ? 'error' : ''}`}>
-            <label>{errors.password ? <p>{errors.password}</p> : 'Password'}</label>
-            <input
-              placeholder='Password'
-              name='password'
-              type='password'
-              value={this.state.password}
-              onChange={this.onChange}
+            <path
+              d='M1610,95.3c0,0-216,80-412,80c-98,0-245.8-40.5-395.1-80.9
+  c149.4,46.2,297.1,92.3,395.1,92.3C1394,186.7,1610,95.3,1610,95.3z'
             />
+          </svg>
+        </div>
+
+        <div style={styles.cardWrapper}>
+          <h1
+            style={{
+              fontSize: '2rem',
+              textAlign: 'center',
+              textTransform: 'uppercase',
+              letterSpacing: 1.1,
+              fontWeight: '300'
+            }}
+          >
+            {' '}
+            FamilyDash{' '}
+          </h1>
+
+          <h1
+            style={{
+              fontSize: '1.5rem',
+              textAlign: 'center',
+              textTransform: 'uppercase',
+              letterSpacing: 1.1,
+              fontWeight: '300'
+            }}
+          >
+            Login
+          </h1>
+          <img
+            src={require('../../assets/images/paper-plane.png')}
+            alt='paper plane logo'
+            style={{ height: 100, margin: '30px auto', display: 'block' }}
+          />
+          <form onSubmit={this.onSubmit} className='ui form'>
+            <div className={`field ${errors.email ? 'error' : ''}`}>
+              <label>{errors.email ? <p>{errors.email}</p> : 'Email Address'}</label>
+              <input
+                placeholder='Email Address'
+                name='email'
+                type='email'
+                value={this.state.email}
+                onChange={this.onChange}
+              />
+            </div>
+
+            <div className={`field ${errors.password ? 'error' : ''}`}>
+              <label>{errors.password ? <p>{errors.password}</p> : 'Password'}</label>
+              <input
+                placeholder='Password'
+                name='password'
+                type='password'
+                value={this.state.password}
+                onChange={this.onChange}
+              />
+            </div>
+            <input type='submit' className='ui button grey fluid' />
+          </form>
+          <div style={{ marginTop: 20, textAlign: 'center' }}>
+            <Link to='/register'>Create an Account</Link>
           </div>
-          <input type='submit' className='ui button' />
-        </form>
-        <div style={{ marginTop: 10 }}>
-          Not registered? <Link to='/register'>Get Started!</Link>
         </div>
       </div>
     );

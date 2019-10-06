@@ -1,6 +1,7 @@
 module.exports = function(app) {
   const db = require('../models');
   const passport = require('passport');
+  const uuidv4 = require('uuid/v4');
 
   // @route GET api/family/test
   // @desc tests the users api route
@@ -8,6 +9,17 @@ module.exports = function(app) {
     res.json({
       success: true,
       msg: 'Testing endpoint works correctly.'
+    });
+  });
+
+  // @route PUT api/family/generate
+  // @desc generates a new family code
+  app.put('/api/family/generate', passport.authenticate('jwt', { session: false }), (req, res) => {
+    db.family.findOne({ where: { familyCode: req.user.familyCode } }).then((family) => {
+      const newUUID = uuidv4();
+
+      family.update()
+      
     });
   });
 
