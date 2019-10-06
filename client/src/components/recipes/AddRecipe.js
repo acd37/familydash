@@ -86,6 +86,7 @@ class AddRecipe extends Component {
   };
 
   removeIngredient = (e) => {
+    e.preventDefault();
     let arr = [...this.state.ingredients];
     console.log(arr);
     let index = arr.indexOf(e.target.value);
@@ -101,6 +102,7 @@ class AddRecipe extends Component {
   };
 
   removeInstruction = (e) => {
+    e.preventDefault();
     let arr = [...this.state.instructions];
     console.log(arr);
     let index = arr.indexOf(e.target.value);

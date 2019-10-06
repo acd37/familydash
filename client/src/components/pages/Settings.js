@@ -26,7 +26,7 @@ class Settings extends Component {
     this.props.getCurrentUser();
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const { user } = nextProps.user;
     this.setState({
       firstName: user.firstName,

@@ -8,7 +8,7 @@ import Settings from '../pages/Settings';
 class Content extends Component {
   render() {
     return (
-      <div>
+      <div style={{ margin: 15 }}>
         <h1>Welcome!</h1>
 
         <Route exact path={'/dashboard'} component={() => <Tiles />} />

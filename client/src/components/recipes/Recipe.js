@@ -26,11 +26,11 @@ class Recipe extends Component {
     };
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.props.getIndividualRecipe(this.props.match.params.id);
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     console.log(nextProps.recipe);
 
     if (Object.keys(nextProps.recipe).length !== 0) {

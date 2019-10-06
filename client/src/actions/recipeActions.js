@@ -38,6 +38,7 @@ export const searchRecipes = (query) => (dispatch) => {
   axios
     .get(`https://api.edamam.com/search?q=${query}&app_id=${appId}&app_key=${appKey}&to=50`)
     .then((res) => {
+      console.log(res.data.hits);
       dispatch({
         type: SET_FOUND_RECIPES,
         payload: res.data.hits

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Tile from '../common/Tile';
 import { createRecipe, searchRecipes } from '../../actions/recipeActions';
 import { connect } from 'react-redux';
-
+import { Link } from 'react-router-dom';
 const styles = {
   wrapper: {
     width: 800,
@@ -85,28 +85,38 @@ class SearchRecipe extends Component {
           </form>
         </div>
 
-        
         <h1> Search Results </h1>
         <div style={styles.tileWrapper}>
           {this.props.foundRecipes.map((recipe) => (
             <div>
-            
-            <Tile>
-              <p>
-                <strong>{recipe.recipe.label}</strong>
-              </p>
-              <p>Calories: {recipe.recipe.calories.toFixed()}</p>
-              <ul>
-                {recipe.recipe.ingredients.map((ingredient) => (
-                  <li style={{ color: 'rgba(0,0,0,0.3)' }}>{ingredient.text}</li>
-                ))}
-              </ul>
+              <Tile>
+                <p>
+                  <strong>{recipe.recipe.label}</strong>
+                </p>
+                <p>Calories: {recipe.recipe.calories.toFixed()}</p>
+                <ul>
+                  {recipe.recipe.ingredients.map((ingredient) => (
+                    <li style={{ color: 'rgba(0,0,0,0.3)' }}>{ingredient.text}</li>
+                  ))}
+                </ul>
+                <p></p>
 
-              <button className='ui button' onClick={() => this.handleSaveRecipe(recipe)}>
-                {' '}
-                Save{' '}
-              </button>
-            </Tile>
+                <a
+                  style={{ marginTop: 10 }}
+                  className='ui fluid button'
+                  href={recipe.recipe.shareAs}
+                  target='_blank'
+                >
+                  View Recipe
+                </a>
+                <button
+                  style={{ marginTop: 10 }}
+                  className='ui fluid button'
+                  onClick={() => this.handleSaveRecipe(recipe)}
+                >
+                  Save
+                </button>
+              </Tile>
             </div>
           ))}
         </div>
