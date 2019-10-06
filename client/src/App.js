@@ -10,7 +10,6 @@ import PrivateRoute from './components/common/PrivateRoute';
 
 import Dashboard from './components/pages/Dashboard';
 import Login from './components/pages/Login';
-import Navbar from './components/layout/Navbar';
 import Register from './components/pages/Register';
 
 // Persistent Login

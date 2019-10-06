@@ -100,7 +100,7 @@ class Todo extends Component {
 
         <div className='ui relaxed divided list'>
           {todos.map((todo) => (
-            <div class='item' key={todo.id}>
+            <div className='item' key={todo.id}>
               <div className='right floated content'>
                 <i
                   className='check middle aligned icon'
@@ -114,7 +114,10 @@ class Todo extends Component {
                   content={
                     <List selection verticalAlign='middle' size='tiny'>
                       {users.map((user) => (
-                        <List.Item onClick={() => this.handleTaskAssignment(todo, user.id)}>
+                        <List.Item
+                          key={user.id}
+                          onClick={() => this.handleTaskAssignment(todo, user.id)}
+                        >
                           <Image avatar src={user.thumbnail} />
                           <List.Content>
                             <List.Header>
@@ -139,6 +142,7 @@ class Todo extends Component {
                   key={todo.id}
                   trigger={
                     <img
+                      alt='profile'
                       style={{ cursor: 'pointer' }}
                       className='ui avatar image'
                       src={this.getAssignedUserProfilePhoto(todo.assignedUser)}
@@ -175,6 +179,7 @@ class Todo extends Component {
                   key={todo.id}
                   trigger={
                     <img
+                      alt='profile'
                       style={{ cursor: 'pointer' }}
                       className='ui avatar image'
                       src={require('../../assets/images/user.png')}

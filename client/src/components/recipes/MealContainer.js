@@ -19,7 +19,7 @@ class MealContainer extends Component {
 
     if (recipes.length >= 1) {
       content = recipes.map((recipe) => (
-        <div class='item' key={recipe.id}>
+        <div className='item' key={recipe.id}>
           <i className='large utensils middle aligned icon' id={recipe.id} />
           <div className='content'>
             <Link to={`/dashboard/recipes/recipe/${recipe.id}/`}>{recipe.name}</Link>{' '}

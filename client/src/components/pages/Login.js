@@ -32,9 +32,9 @@ const styles = {
     top: '50%',
     marginTop: '-100px',
     borderRadius: 10,
-    backgroundColor: '#eee',
-    width: 350,
-    padding: 30,
+    backgroundColor: '#edf2f7',
+    width: 375,
+    padding: 50,
     maxWidth: '90%',
     boxShadow: '0 12px 15px rgba(0,0,0,0.1), 0 17px 50px rgba(0,0,0,0.1)'
     // transform: 'translateY(-250px)'
@@ -117,7 +117,7 @@ class Login extends Component {
         <div style={styles.cardWrapper}>
           <h1
             style={{
-              fontSize: '2rem',
+              fontSize: '2.5rem',
               textAlign: 'center',
               textTransform: 'uppercase',
               letterSpacing: 1.1,
@@ -159,6 +159,7 @@ class Login extends Component {
             <div className={`field ${errors.password ? 'error' : ''}`}>
               <label>{errors.password ? <p>{errors.password}</p> : 'Password'}</label>
               <input
+                autoComplete='password'
                 placeholder='Password'
                 name='password'
                 type='password'

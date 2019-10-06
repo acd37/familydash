@@ -13,32 +13,23 @@ const styles = {
 
 class AllRecipes extends Component {
   render() {
-
-
     let content;
 
     if (this.props.recipes.length >= 1) {
-      content = (
-        this.props.recipes.map((recipe) => (
-          <RecipeCard recipe={recipe} />
-        ))
-      )
+      content = this.props.recipes.map((recipe) => <RecipeCard key={recipe.id} recipe={recipe} />);
     } else {
       content = (
         <div>
           <p> Add some recipes to see them here.</p>
         </div>
-      )
+      );
     }
-
 
     return (
       <div>
         <h1> All Recipes </h1>
 
-        <div style={styles.flexContainer}>
-          {content}
-        </div>
+        <div style={styles.flexContainer}>{content}</div>
       </div>
     );
   }

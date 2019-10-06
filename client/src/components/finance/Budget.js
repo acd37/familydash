@@ -52,6 +52,7 @@ class Budget extends Component {
       return (
         <div>
           <img
+            alt='ynab logo'
             style={{ height: 25, marginBottom: '20px' }}
             src={require('../../assets/images/ynab.png')}
           />
@@ -97,8 +98,8 @@ class Budget extends Component {
               category.name !== 'Internal Master Category'
           )
           .map((category) => (
-            <div className='item' style={{ marginBottom: 10 }}>
-              <i class='money icon'></i>
+            <div key={category.id} className='item' style={{ marginBottom: 10 }}>
+              <i className='money icon'></i>
               <div className='content'>
                 <div className='header'>{category.name}</div>
 
@@ -106,7 +107,7 @@ class Budget extends Component {
                   {category.categories
                     .filter((lineItem) => lineItem.balance !== 0)
                     .map((lineItem) => (
-                      <div className='description' style={{ marginLeft: 20 }}>
+                      <div key={lineItem.id} className='description' style={{ marginLeft: 20 }}>
                         {lineItem.name}: ${(lineItem.balance / 1000).toFixed(2)}
                       </div>
                     ))}

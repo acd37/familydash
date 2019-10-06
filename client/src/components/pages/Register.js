@@ -151,7 +151,7 @@ class Register extends Component {
               onChange={this.onChange}
             />
           </div>
-          <input type='submit' class='ui button' value='Sign Up' />
+          <input type='submit' className='ui button' value='Sign Up' />
         </form>
         <div style={{ marginTop: 10, fontSize: '0.8rem' }}>
           Already registered? <Link to='/'>Back to Login</Link>

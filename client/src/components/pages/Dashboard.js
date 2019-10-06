@@ -30,6 +30,7 @@ class Dashboard extends Component {
         <div style={styles.loadingWrapper}>
           <h2 style={{ marginTop: '5%' }}>Loading...</h2>
           <img
+            alt='logo'
             style={{ height: 125, width: 125 }}
             src={require('../../assets/images/paper-plane.png')}
           />

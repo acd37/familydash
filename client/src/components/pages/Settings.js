@@ -72,7 +72,7 @@ class Settings extends Component {
             <p>
               Keep this code safe. Share it with those that you would like to have join your family.
             </p>
-            <div class='ui divider'></div>
+            <div className='ui divider'></div>
             <p style={{ color: '#cc0000' }}>
               <strong>Warning: </strong> If your family code is compromised, please regenerate it
               below.
@@ -90,7 +90,7 @@ class Settings extends Component {
               {' '}
               Member since: <Moment format='DD MMM YYYY' date={this.state.memberSince} />
             </p>
-            <div class='ui divider'></div>
+            <div className='ui divider'></div>
 
             {this.state.editable ? (
               <button

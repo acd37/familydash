@@ -90,7 +90,7 @@ class Dates extends Component {
             <div className={`field ${errors.type ? 'error' : ''}`}>
               <label>{errors.type ? <p>{errors.type}</p> : 'Event Type'}</label>
               <select
-                class='ui compact selection dropdown'
+                className='ui compact selection dropdown'
                 value={this.state.type}
                 name='type'
                 onChange={this.onChange}
@@ -128,12 +128,15 @@ class Dates extends Component {
 
         <div className='ui tiny divided list'>
           {dates
-            .sort(function(a, b) {
-              if (a.date < b.date) return 1;
-              if (a.date > b.date) return -1;
+            .sort((a, b) => {
+              if (a.date < b.date) {
+                return 1;
+              } else {
+                return -1;
+              }
             })
             .map((date) => (
-              <div class='item' key={date.id}>
+              <div className='item' key={date.id}>
                 <i
                   className={`large 
                     ${date.type === 'holiday' && 'plane'} 

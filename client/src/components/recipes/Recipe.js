@@ -33,7 +33,7 @@ class Recipe extends Component {
   componentWillReceiveProps(nextProps) {
     console.log(nextProps.recipe);
 
-    if (Object.keys(nextProps.recipe).length != 0) {
+    if (Object.keys(nextProps.recipe).length !== 0) {
       this.setState({
         name: nextProps.recipe.name,
         description: nextProps.recipe.description,
@@ -169,15 +169,15 @@ class Recipe extends Component {
           <strong>Cook:</strong> {this.state.cookTime} minutes
         </p>
 
-        <h4 class='ui horizontal divider header'>
-          <i class='shopping basket icon'></i>
+        <h4 className='ui horizontal divider header'>
+          <i className='shopping basket icon'></i>
           Ingredients
         </h4>
         <div className='ui middle aligned list'>
           {this.state.ingredients.map((ingredient) => (
-            <div class='item' key={ingredient.id}>
+            <div className='item' key={ingredient.id}>
               <img
-                class='ui avatar image'
+                className='ui avatar image'
                 src={require(`../../assets/images/food/${this.handleFetchImage(ingredient)}.png`)}
                 alt='food icon'
               />
@@ -188,8 +188,8 @@ class Recipe extends Component {
           ))}
         </div>
 
-        <h4 class='ui horizontal divider header'>
-          <i class='question icon'></i>
+        <h4 className='ui horizontal divider header'>
+          <i className='question icon'></i>
           Instructions
         </h4>
         <ol>

@@ -7,8 +7,6 @@ import Settings from '../pages/Settings';
 
 class Content extends Component {
   render() {
-    const { family } = this.props.family;
-
     return (
       <div>
         <h1>Welcome!</h1>
