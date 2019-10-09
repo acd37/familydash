@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getDates, createDate, deleteDate } from '../../actions/dateActions';
 import Moment from 'react-moment';
+import moment from 'moment';
 import 'moment-timezone';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -36,7 +37,10 @@ class Dates extends Component {
     const { id } = e.target;
     const familyId = this.props.family.family.id;
 
-    this.props.deleteDate(id, familyId);
+    const confirm = window.confirm('Are you sure you want to delete this date from your list?');
+    if (confirm) {
+      this.props.deleteDate(id, familyId);
+    }
   };
 
   handleCreateDate = (e) => {
@@ -74,6 +78,31 @@ class Dates extends Component {
     this.setState((prevState) => ({
       showForm: !prevState.showForm
     }));
+  };
+
+  daysUntil = (date) => {
+    const birthday = moment(date);
+    const today = moment().format('YYYY-MM-DD');
+
+    // calculate age of the person
+    const age = moment(today).diff(birthday, 'years');
+    moment(age).format('YYYY-MM-DD');
+    console.log('person age', age);
+
+    let nextBirthday = moment(birthday).add(age, 'years');
+    moment(nextBirthday).format('YYYY-MM-DD');
+
+    if (nextBirthday.isSame(today)) {
+      return 'Cake!!';
+    } else {
+      nextBirthday = moment(birthday).add(age + 1, 'years');
+      return nextBirthday.diff(today, 'days');
+    }
+  };
+
+  getNextOccurence = (date) => {
+    const res = this.daysUntil(date);
+    return res;
   };
 
   render() {
@@ -149,12 +178,20 @@ class Dates extends Component {
                   style={{ cursor: 'pointer', marginRight: 10 }}
                 />
                 <div className='content'>
-                  <div className='header'>{date.description}</div>
+                  <div className='header'>
+                    {date.description} (<Moment format='MMM DD, YYYY' date={date.date} />)
+                  </div>
                   <div
                     style={{ fontSize: '0.7rem', color: 'rgba(0,0,0,0.8)' }}
                     className='description'
                   >
-                    <Moment format='DD MMM YYYY' date={date.date} />
+                    {this.getNextOccurence(date.date) < 21 ? (
+                      <span style={{ color: '#cc0000' }}>
+                        {this.getNextOccurence(date.date)} days to go
+                      </span>
+                    ) : (
+                      <span>{this.getNextOccurence(date.date)} days to go</span>
+                    )}
                   </div>
                 </div>
               </div>

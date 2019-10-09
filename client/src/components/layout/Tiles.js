@@ -6,6 +6,7 @@ import UserContainer from '../users/UserContainer';
 import MealContainer from '../recipes/MealContainer';
 import Masonry from 'react-masonry-css';
 import Budget from '../finance/Budget';
+import Devices from '../devices/Devices';
 
 const breakpointColumnsObj = {
   default: 3,
@@ -17,54 +18,52 @@ const breakpointColumnsObj = {
 class Tiles extends Component {
   render() {
     return (
-      <Masonry breakpointCols={breakpointColumnsObj}>
-        <Tile
-          title='Family Members'
-          subTitle='All members of your group are listed here.'
-          icon='users'
-          borderTop='5px solid #ee5253'
-        >
-          <UserContainer />
-        </Tile>
-        <Tile
-          title='Tasks'
-          subTitle='Get this stuff done!'
-          icon='tasks'
-          borderTop='5px solid #5f27cd'
-        >
-          <Todo />
-        </Tile>
-        <Tile
-          title='Weekly Meals'
-          subTitle="Mmmm. It's going to be a yummy week!"
-          icon='shopping basket'
-          borderTop='5px solid #10ac84'
-        >
-          <MealContainer />
-        </Tile>
-        <Tile
-          title='ChoreChart'
-          subTitle='What are you doing today?'
-          icon='balance scale'
-          borderTop='5px solid #ff9f43'
-        ></Tile>
-        <Tile
-          title='Important Dates'
-          subTitle='Get ready to celebrate!'
-          icon='gift'
-          borderTop='5px solid #f368e0'
-        >
-          <Dates />
-        </Tile>
-        <Tile
-          title='Budget'
-          subTitle='Do you really need those new jeans?'
-          icon='pound'
-          borderTop='5px solid #8395a7'
-        >
-          <Budget />
-        </Tile>
-      </Masonry>
+      <div>
+        <Masonry breakpointCols={breakpointColumnsObj}>
+          <Tile
+            title='Family Members'
+            subTitle="Family. It's about time."
+            icon='users'
+            borderTop='5px solid #ee5253'
+          >
+            <UserContainer />
+          </Tile>
+          <Tile title='Tasks' subTitle='Get shit done.' icon='tasks' borderTop='5px solid #5f27cd'>
+            <Todo />
+          </Tile>
+          <Tile
+            title='Weekly Meals'
+            subTitle="What's cookin', good lookin'?"
+            icon='shopping basket'
+            borderTop='5px solid #10ac84'
+          >
+            <MealContainer />
+          </Tile>
+          <Tile
+            title='Important Dates'
+            subTitle="Don't forget the card!"
+            icon='gift'
+            borderTop='5px solid #f368e0'
+          >
+            <Dates />
+          </Tile>
+          <Tile
+            title='ChoreChart'
+            subTitle='What are you doing today?'
+            icon='balance scale'
+            borderTop='5px solid #ff9f43'
+          ></Tile>
+
+          <Tile
+            title='Budget'
+            subTitle="Here's what you have left."
+            icon='pound'
+            borderTop='5px solid #8395a7'
+          >
+            <Budget />
+          </Tile>
+        </Masonry>
+      </div>
     );
   }
 }

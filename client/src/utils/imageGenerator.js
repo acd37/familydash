@@ -1,7 +1,7 @@
 import ingredients from '../constants/IngredientTypes';
 
 const imageGenerator = (ingredient) => {
-  const splitIngredientStr = ingredient.split(' ');
+  const splitIngredientStr = ingredient.split(/[\s,]+/);
   if (splitIngredientStr.length === 1) {
     for (let i = 0; i < ingredients.length; i++) {
       if (ingredients[i].descriptor.includes(splitIngredientStr[0].toLowerCase())) {

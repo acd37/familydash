@@ -1,6 +1,7 @@
 module.exports = function(app) {
   const db = require('../models');
   const passport = require('passport');
+  const { transporter, mailOptions } = require('../mailservice/mailConfig');
 
   // @route GET api/users/test
   // @desc tests the users api route
@@ -71,7 +72,20 @@ module.exports = function(app) {
           }
         })
         .then((todos) => {
-          res.status(200).json(todos);
+          transporter.sendMail(mailOptions, function(error, info) {
+            if (error) {
+              console.log(error);
+              res.status(400).json({
+                error: "We couldn't send an email"
+              });
+            } else {
+              console.log('Email sent!');
+              res.status(200).json({
+                success: 'We sent an email'
+              });
+            }
+          });
+          // res.status(200).json(todos);
         })
         .catch((err) => {
           res.status(500).json(err);
