@@ -29,7 +29,7 @@ const styles = {
     position: 'absolute',
     left: '50%',
     marginLeft: '-175px',
-    top: '50%',
+    top: '35%',
     marginTop: '-100px',
     borderRadius: 10,
     backgroundColor: '#edf2f7',
