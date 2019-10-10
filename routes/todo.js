@@ -1,7 +1,7 @@
 module.exports = function(app) {
   const db = require('../models');
   const passport = require('passport');
-  // const { transporter, mailOptions } = require('../mailservice/mailConfig');
+  const { transporter } = require('../mailservice/mailConfig');
 
   // @route GET api/users/test
   // @desc tests the users api route
@@ -57,8 +57,9 @@ module.exports = function(app) {
   // @route  PUT api/todo/:id
   // @desc updates a todo item
   app.put('/api/todo/:id', passport.authenticate('jwt', { session: false }), (req, res) => {
+    console.log(req.body);
     const updatedTodo = {
-      description: req.body.todo,
+      description: req.body.description,
       isCompleted: req.body.isCompleted,
       assignedUser: req.body.assignedUser,
       familyId: req.body.familyId
@@ -72,22 +73,39 @@ module.exports = function(app) {
           }
         })
         .then((todos) => {
-          res.json(todos);
+          console.log(updatedTodo);
 
-          // transporter.sendMail(mailOptions, function(error, info) {
-          //   if (error) {
-          //     console.log(error);
-          //     res.status(400).json({
-          //       error: "We couldn't send an email"
-          //     });
-          //   } else {
-          //     console.log('Email sent!');
-          //     res.status(200).json({
-          //       success: 'We sent an email'
-          //     });
-          //   }
-          // });
-          // res.status(200).json(todos);
+          db.user.findOne({ where: { id: updatedTodo.assignedUser } }).then((user) => {
+            console.log(user);
+
+            const mailOptions = {
+              from: 'FamilyDash',
+              to: user.email,
+              subject: `New Task Assigned: ${updatedTodo.description}`,
+              generateTextFromHTML: true,
+              html:
+                `<h3>Hi, ${user.firstName} </h3>` +
+                `<p> You have been assigned a new task: ${updatedTodo.description} </p>` +
+                `<p> Thanks, </p>` +
+                `<p> The folks at FamilyDash! </p>`
+            };
+
+            transporter.sendMail(mailOptions, function(error, info) {
+              if (error) {
+                console.log(error);
+                res.status(400).json({
+                  error: "We couldn't send an email"
+                });
+              } else {
+                console.log('Email sent!');
+                res.status(200).json({
+                  success: 'We sent an email'
+                });
+              }
+            });
+          });
+
+          res.status(200).json(todos);
         })
         .catch((err) => {
           res.status(500).json(err);
