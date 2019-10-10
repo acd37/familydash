@@ -166,6 +166,14 @@ class Dates extends Component {
             })
             .map((date) => (
               <div className='item' key={date.id}>
+                <div className='right floated content'>
+                  <i
+                    className='trash middle aligned icon'
+                    id={date.id}
+                    onClick={this.handleDeleteDate}
+                    style={{ cursor: 'pointer', marginRight: 10 }}
+                  />
+                </div>
                 <i
                   className={`large 
                     ${date.type === 'holiday' && 'plane'} 
@@ -174,8 +182,7 @@ class Dates extends Component {
                     ${date.type === 'other' && 'bullhorn'} 
                     middle aligned icon`}
                   id={date.id}
-                  onClick={this.handleDeleteDate}
-                  style={{ cursor: 'pointer', marginRight: 10 }}
+                  style={{ marginRight: 10 }}
                 />
                 <div className='content'>
                   <div className='header'>
