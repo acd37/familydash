@@ -1,4 +1,5 @@
 const nodemailer = require('nodemailer');
+const fs = require('fs');
 
 const transporter = nodemailer.createTransport({
   service: 'gmail',
@@ -11,6 +12,18 @@ const transporter = nodemailer.createTransport({
   }
 });
 
+const readHTMLFile = (path, cb) => {
+  fs.readFile(path, { encoding: 'utf-8' }, (err, html) => {
+    if (err) {
+      throw err;
+      cb(err);
+    } else {
+      cb(null, html);
+    }
+  });
+};
+
 module.exports = {
-  transporter
+  transporter,
+  readHTMLFile
 };

@@ -1,7 +1,9 @@
 module.exports = function(app) {
   const db = require('../models');
   const passport = require('passport');
-  const { transporter } = require('../mailservice/mailConfig');
+  const { transporter, readHTMLFile } = require('../mailservice/mailConfig');
+  const handlebars = require('handlebars');
+  const path = require('path');
 
   // @route GET api/users/test
   // @desc tests the users api route
@@ -76,32 +78,36 @@ module.exports = function(app) {
           console.log(updatedTodo);
 
           db.user.findOne({ where: { id: updatedTodo.assignedUser } }).then((user) => {
-            console.log(user);
+            readHTMLFile(path.join(__dirname, '../public/pages/email.html'), (err, html) => {
+              const template = handlebars.compile(html);
+              const replacements = {
+                username: user.firstName,
+                task: updatedTodo.description
+              };
 
-            const mailOptions = {
-              from: 'FamilyDash',
-              to: user.email,
-              subject: `New Task Assigned: ${updatedTodo.description}`,
-              generateTextFromHTML: true,
-              html:
-                `<h3>Hi, ${user.firstName} </h3>` +
-                `<p> You have been assigned a new task: ${updatedTodo.description} </p>` +
-                `<p> Thanks, </p>` +
-                `<p> The folks at FamilyDash! </p>`
-            };
+              const htmlToSend = template(replacements);
 
-            transporter.sendMail(mailOptions, function(error, info) {
-              if (error) {
-                console.log(error);
-                res.status(400).json({
-                  error: "We couldn't send an email"
-                });
-              } else {
-                console.log('Email sent!');
-                res.status(200).json({
-                  success: 'We sent an email'
-                });
-              }
+              const mailOptions = {
+                from: 'FamilyDash',
+                to: user.email,
+                subject: `New Task Assigned: ${updatedTodo.description}`,
+                generateTextFromHTML: true,
+                html: htmlToSend
+              };
+
+              transporter.sendMail(mailOptions, function(error, info) {
+                if (error) {
+                  console.log(error);
+                  res.status(400).json({
+                    error: "We couldn't send an email"
+                  });
+                } else {
+                  console.log('Email sent!');
+                  res.status(200).json({
+                    success: 'We sent an email'
+                  });
+                }
+              });
             });
           });
 
