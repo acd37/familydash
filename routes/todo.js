@@ -60,6 +60,7 @@ module.exports = function(app) {
   // @desc updates a todo item
   app.put('/api/todo/:id', passport.authenticate('jwt', { session: false }), (req, res) => {
     console.log(req.body);
+
     const updatedTodo = {
       description: req.body.description,
       isCompleted: req.body.isCompleted,

@@ -7,9 +7,9 @@ const port = process.env.PORT || 5000;
 const app = express();
 const path = require('path');
 
-// Bodyparser
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+app.use(express.static(path.join(__dirname, 'client/build')));
 
 // Morgan
 app.use(morganConfig);
@@ -36,7 +36,7 @@ db.sequelize.sync({ alter: true }).then(() => {
   // server static assets if in production
   if (process.env.NODE_ENV === 'production') {
     // set static folder
-    app.use(express.static('client/build'));
+    app.use(express.static(path.join(dirname__, 'client/build')));
 
     app.get('*', (req, res) => {
       res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
