@@ -39,12 +39,7 @@ const MealContainer = () => {
 
     return (
         <div>
-            <Button
-                variant='contained'
-                color='primary'
-                onClick={() => history.push('/dashboard/recipes')}>
-                All Recipes
-            </Button>
+            <Button onClick={() => history.push('/dashboard/recipes')}>All Recipes</Button>
 
             <div className='ui relaxed divided list'>{content}</div>
         </div>

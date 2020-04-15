@@ -26,25 +26,23 @@ if (localStorage.familydash) {
     }
 }
 
-class App extends Component {
-    render() {
-        return (
-            <Provider store={store}>
-                <Router>
-                    <div className='App'>
-                        <div>
-                            <Route exact path='/' component={Login} />
-                            <Route exact path='/register' component={Register} />
+const App = () => {
+    return (
+        <Provider store={store}>
+            <Router>
+                <div className='App'>
+                    <div>
+                        <Route exact path='/' component={Login} />
+                        <Route exact path='/register' component={Register} />
 
-                            <Switch>
-                                <PrivateRoute path='/dashboard' component={Dashboard} />
-                            </Switch>
-                        </div>
+                        <Switch>
+                            <PrivateRoute path='/dashboard' component={Dashboard} />
+                        </Switch>
                     </div>
-                </Router>
-            </Provider>
-        );
-    }
-}
+                </div>
+            </Router>
+        </Provider>
+    );
+};
 
 export default App;

@@ -112,11 +112,7 @@ class Dates extends Component {
 
         return (
             <div>
-                <Button
-                    variant='contained'
-                    color='primary'
-                    type='submit'
-                    onClick={this.handleToggleForm}>
+                <Button type='submit' onClick={this.handleToggleForm}>
                     {this.state.showForm ? 'Cancel' : 'Add New'}
                 </Button>
 

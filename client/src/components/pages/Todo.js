@@ -98,9 +98,7 @@ class Todo extends Component {
                             placeholder='Add new...'
                         />
                     </div>
-                    <Button variant='contained' color='primary' type='submit'>
-                        Add{' '}
-                    </Button>
+                    <Button type='submit'>Add </Button>
                 </form>
 
                 <div className='ui relaxed divided list'>
