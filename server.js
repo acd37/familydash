@@ -6,6 +6,9 @@ const { morganConfig } = require('./config/morganConfig');
 const port = process.env.PORT || 5000;
 const app = express();
 const path = require('path');
+const compression = require('compression');
+
+app.use(compression());
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -27,15 +30,14 @@ require('./routes/todo')(app);
 require('./routes/family')(app);
 require('./routes/recipe')(app);
 require('./routes/date')(app);
-require('./routes/finance')(app);
 
 // Models
 const db = require('./models');
 
 db.sequelize.sync({ alter: true }).then(() => {
-  // server static assets if in production
-  // set static folder
-  app.use(express.static(path.join(__dirname, 'client/build')));
+    // server static assets if in production
+    // set static folder
+    app.use(express.static(path.join(__dirname, 'client/build')));
 
-  app.listen(port, () => console.log(`Server running on port ${chalk.green.bold(port)}!`));
+    app.listen(port, () => console.log(`Server running on port ${chalk.green.bold(port)}!`));
 });

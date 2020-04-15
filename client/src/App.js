@@ -14,37 +14,37 @@ import Register from './components/pages/Register';
 
 // Persistent Login
 if (localStorage.familydash) {
-  setAuthToken(localStorage.familydash);
+    setAuthToken(localStorage.familydash);
 
-  const decoded = jwtDecode(localStorage.familydash);
-  store.dispatch(setCurrentUser(decoded));
+    const decoded = jwtDecode(localStorage.familydash);
+    store.dispatch(setCurrentUser(decoded));
 
-  const currentTime = Date.now() / 1000;
-  if (decoded.exp < currentTime) {
-    store.dispatch(logoutUser());
-    window.location.href = '/';
-  }
+    const currentTime = Date.now() / 1000;
+    if (decoded.exp < currentTime) {
+        store.dispatch(logoutUser());
+        window.location.href = '/';
+    }
 }
 
 class App extends Component {
-  render() {
-    return (
-      <Provider store={store}>
-        <Router>
-          <div className='App'>
-            <div>
-              <Route exact path='/' component={Login} />
-              <Route exact path='/register' component={Register} />
+    render() {
+        return (
+            <Provider store={store}>
+                <Router>
+                    <div className='App'>
+                        <div>
+                            <Route exact path='/' component={Login} />
+                            <Route exact path='/register' component={Register} />
 
-              <Switch>
-                <PrivateRoute path='/dashboard' component={Dashboard} />
-              </Switch>
-            </div>
-          </div>
-        </Router>
-      </Provider>
-    );
-  }
+                            <Switch>
+                                <PrivateRoute path='/dashboard' component={Dashboard} />
+                            </Switch>
+                        </div>
+                    </div>
+                </Router>
+            </Provider>
+        );
+    }
 }
 
 export default App;
